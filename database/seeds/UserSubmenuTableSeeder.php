@@ -13,14 +13,6 @@ class UserSubmenuTableSeeder extends Seeder
     {
         DB::table('user_submenu')->insert([
             'menu_id' => 1,
-            'title' => 'Dashboard',
-            'url' => 'home',
-            'icon' => 'fas fa-fw fa-tachometer-alt',
-            'is_active' => 1
-        ]);
-
-        DB::table('user_submenu')->insert([
-            'menu_id' => 1,
             'title' => 'Role',
             'url' => 'role.index',
             'icon' => 'fas fa-fw fa-user-tie',
@@ -37,6 +29,22 @@ class UserSubmenuTableSeeder extends Seeder
 
         DB::table('user_submenu')->insert([
             'menu_id' => 2,
+            'title' => 'Dashboard',
+            'url' => 'home',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
+            'is_active' => 1
+        ]);
+
+        DB::table('user_submenu')->insert([
+            'menu_id' => 3,
+            'title' => 'Forests Management',
+            'url' => 'forests.index',
+            'icon' => 'fas fa-fw fa-tree',
+            'is_active' => 1
+        ]);
+
+        DB::table('user_submenu')->insert([
+            'menu_id' => 4,
             'title' => 'My Profile',
             'url' => 'my-profile',
             'icon' => 'fas fa-fw fa-user',
@@ -44,7 +52,7 @@ class UserSubmenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_submenu')->insert([
-            'menu_id' => 2,
+            'menu_id' => 4,
             'title' => 'Edit Profil',
             'url' => 'edit-profile',
             'icon' => 'fas fa-fw fa-user-edit',
@@ -52,7 +60,7 @@ class UserSubmenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_submenu')->insert([
-            'menu_id' => 2,
+            'menu_id' => 4,
             'title' => 'Change Password',
             'url' => 'change-password',
             'icon' => 'fas fa-fw fa-key',
@@ -60,7 +68,7 @@ class UserSubmenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_submenu')->insert([
-            'menu_id' => 3,
+            'menu_id' => 5,
             'title' => 'Menu Management',
             'url' => 'menu.index',
             'icon' => 'fas fa-fw fa-folder',
@@ -68,7 +76,7 @@ class UserSubmenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_submenu')->insert([
-            'menu_id' => 3,
+            'menu_id' => 5,
             'title' => 'Submenu Management',
             'url' => 'submenu.index',
             'icon' => 'fas fa-fw fa-folder-open',

@@ -16,6 +16,14 @@ class UserMenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_menu')->insert([
+            'menu' => 'Head of Departement',
+        ]);
+
+        DB::table('user_menu')->insert([
+            'menu' => 'Employee',
+        ]);
+
+        DB::table('user_menu')->insert([
             'menu' => 'Profil',
         ]);
 

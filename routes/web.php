@@ -15,7 +15,6 @@ Route::get('/login', 'AuthController@index')->name('auth.index')->middleware('gu
 Route::post('/login', 'AuthController@login')->name('login')->middleware('guest');
 
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
-    Route::get('/', 'HomeController@index')->name('home');
     Route::post('/logout', 'AuthController@logout')->name('logout');
 
     Route::get('/my-profile', 'UserController@show')->name('my-profile');
@@ -25,7 +24,6 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::patch('/update-password/{id}', 'UserController@updatePassword')->name('update-password');
 
     Route::group(['roles' => 'Admin'], function () {
-
         Route::resource('/users', 'UserController')->except(['show']);
 
         Route::resource('/role', 'RoleController')->except(['create', 'show']);
@@ -37,5 +35,13 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
         Route::resource('/submenu', 'SubmenuController')->except(['create', 'show', 'edit']);;
         Route::post('/getSubmenu', 'SubmenuController@getSubmenu');
+    });
+
+    Route::group(['roles' => 'Kepala Dinas'], function () {
+        Route::get('/', 'HomeController@index')->name('home');
+    });
+
+    Route::group(['roles' => 'Pegawai'], function () {
+        Route::resource('/forests', 'ForestController');
     });
 });

@@ -16,8 +16,24 @@ class UsersTableSeeder extends Seeder
             'role_id' => 1,
             'name' => 'Administrator',
             'image' => 'admin.png',
-            'nrp' => '000011112222',
-            'password' => Hash::make('admin123')
+            'nrp' => '172410101001',
+            'password' => Hash::make('123123')
+        ]);
+
+        DB::table('users')->insert([
+            'role_id' => 2,
+            'name' => 'Kepala Dinas',
+            'image' => '1569540948_kevin(1).jpg',
+            'nrp' => '172410101002',
+            'password' => Hash::make('123123')
+        ]);
+
+        DB::table('users')->insert([
+            'role_id' => 3,
+            'name' => 'Pegawai or Staff',
+            'image' => '1569512619_admin.png',
+            'nrp' => '172410101003',
+            'password' => Hash::make('123123')
         ]);
     }
 }

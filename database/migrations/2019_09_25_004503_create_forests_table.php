@@ -16,7 +16,7 @@ class CreateForestsTable extends Migration
         Schema::create('forests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('nik')->unique();
+            $table->string('nik');
             $table->string('owner');
             $table->string('city');
             $table->string('village');

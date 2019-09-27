@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\UserRole');
     }
 
+    public function forests()
+    {
+        return $this->hasMany('App\Forest');
+    }
+
     public function hasRole($roles)
     {
         $this->have_role = $this->getUserRole();
