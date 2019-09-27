@@ -17,7 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $title = 'Role';
+        $title = 'Role Management';
         $user_role = UserRole::all();
         return view('role.index', compact('title', 'user_role'));
     }

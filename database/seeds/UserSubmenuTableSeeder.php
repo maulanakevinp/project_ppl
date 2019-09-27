@@ -13,7 +13,7 @@ class UserSubmenuTableSeeder extends Seeder
     {
         DB::table('user_submenu')->insert([
             'menu_id' => 1,
-            'title' => 'Role',
+            'title' => 'Role Management',
             'url' => 'role.index',
             'icon' => 'fas fa-fw fa-user-tie',
             'is_active' => 1
@@ -21,7 +21,7 @@ class UserSubmenuTableSeeder extends Seeder
 
         DB::table('user_submenu')->insert([
             'menu_id' => 1,
-            'title' => 'User Management',
+            'title' => 'Users Management',
             'url' => 'users.index',
             'icon' => 'fas fa-fw fa-user-edit',
             'is_active' => 1

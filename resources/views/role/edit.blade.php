@@ -21,7 +21,7 @@
         <div class="col-lg-6">
             <div class="card shadow h-100">
                 <div class="card-header">
-                    <h5 id="judul" class="m-0 pt-1 font-weight-bold text-primary">
+                    <h5 id="judul" class="m-0 pt-1 font-weight-bold text-success">
                         {{ __('Role :')}} {{ $role->role }}
                     </h5>
                 </div>
