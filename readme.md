@@ -19,8 +19,38 @@ Bagi yang sudah memiliki composer silahkan ikuti tutor dibawah ini
 - Silahkan pilih lokasi path yang anda inginkan
 - Kemudian klik Clone
 - Tunggu sampai proses clone selesai
-- buka folder porject yang sudah di clone melalui terminal
-- lakukan update dependecies ketik
+- Buka folder porject yang sudah di clone melalui terminal
+- Lakukan update dependecies ketik
+```terminal
+composer update -vvv
+```
+- Tunggu sampai proses selesai
+- Buat database baru di phpmyadmin anda beri nama sesuka hati anda
+- Copy file .env.example yang ada di dalam folder project dan ubah namanya menjadi .env
+```terminal
+cp .env.exaple .env
+```
+- Lakukan generate key ketik 
+```terminal
+php artisan key:generate
+```
+- Buka file .env
+- Ubah konfigurasi database sesuai nama database yang anda buat tadi lalu simpan
+- Finish project laravel bisa dijalankan dengan menggunakan development server dengan cara ketik
+```terminal
+php artisan serve
+```
+- Lalu ctrl+klik pada http://127.0.0.0:8000
+
+## Cara instal project tanpa github desktop
+Bagi yang sudah memiliki composer silahkan ikuti tutor dibawah ini
+- Klik tombol Clone or download
+- Silahkan pilih lokasi path yang anda inginkan
+- Kemudian klik Oke
+- Tunggu sampai proses download selesai
+- Extract here 
+- Buka folder porject yang sudah di extract dengan terminal
+- Lakukan update dependecies ketik
 ```terminal
 composer update -vvv
 ```
