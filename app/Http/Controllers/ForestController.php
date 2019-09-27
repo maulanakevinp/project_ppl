@@ -15,7 +15,7 @@ class ForestController extends Controller
     public function index()
     {
         $forests = Forest::all();
-        $title = 'Forest Management';
+        $title = 'Forests Management';
         return view('forest.index', compact('title', 'forests'));
     }
 

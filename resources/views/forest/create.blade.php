@@ -34,19 +34,34 @@
                     <form action=" {{ route('forests.store') }} " method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label for="role" class="col-sm-2 col-form-label">{{__('Role')}}</label>
+                            <label for="nik" class="col-sm-2 col-form-label">{{__('NIK')}}</label>
                             <div class="col-sm-10">
-                                <select class="form-control @error('role') is-invalid @enderror" name="role" id="role">
-                                    <option value="">Choose Role</option>
-                                    @foreach ($user_role as $role)
-                                        @if(old('role') == $role->id)
-                                        <option selected="selected" value="{{$role->id}}">{{$role->role}}</option>
-                                        @else
-                                        <option value="{{$role->id}}">{{$role->role}}</option>
-                                        @endif
-                                    @endforeach
+                                <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ old('nik') }}" autocomplete="off">
+                                @error('nik')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="owner" class="col-sm-2 col-form-label">{{__('Full name')}}</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control @error('owner') is-invalid @enderror" id="owner" name="owner" value="{{ old('owner') }}" autocomplete="off">
+                                @error('owner')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="city" class="col-sm-2 col-form-label">{{__('City')}}</label>
+                            <div class="col-sm-10">
+                                <select class="form-control @error('city') is-invalid @enderror" name="city" id="city">
+                                    <option value="">Choose City</option>
                                 </select>
-                                @error('role')
+                                @error('city')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -54,10 +69,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nrp" class="col-sm-2 col-form-label">{{__('NRP')}}</label>
+                            <label for="village" class="col-sm-2 col-form-label">{{__('Village')}}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control @error('nrp') is-invalid @enderror" id="nrp" name="nrp" value="{{ old('nrp') }}" autocomplete="off">
-                                @error('nrp')
+                                <select class="form-control @error('village') is-invalid @enderror" name="village" id="village">
+                                    <option value="">Choose Village</option>
+                                </select>
+                                @error('village')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -65,65 +82,22 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">{{__('Full name')}}</label>
+                            <label for="address" class="col-sm-2 col-form-label">{{__('Address')}}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
-                                @error('name')
+                                <textarea rows="5" class="form-control @error('address') is-invalid @enderror" id="address" name="address"  autocomplete="off">
+                                    {{ old('address') }}
+                                </textarea>
+                                @error('address')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="password" class="col-sm-2 col-form-label">{{__('Password')}}</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" autocomplete="off">
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="confirm_password" class="col-sm-2 col-form-label">{{__('Confirm Password')}}</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="confirm_password" name="confirm_password" autocomplete="off">
-                                @error('confirm_password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                {{__('Picture')}}
-                            </div>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <img src="{{ asset('img/profile/default.jpg') }}" class="img-thumbnail">
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image">
-                                            <label class="custom-file-label" for="image">{{__('Choose file')}}</label>
-                                        </div>
-                                        @error('image')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="form-group row justify-content-end">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success btn-block">
-                                    {{__('Add New user')}}
+                                    {{__('Add New Forest')}}
                                 </button>
                             </div>
                         </div>
