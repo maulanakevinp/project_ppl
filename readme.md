@@ -7,6 +7,41 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Cara Install Composer
+Untuk menginstal project ini anda harus bahan yang harus dibutuhkan yaitu
+- Composer bagi yang belum install composer silahkan download [Klik di sini](https://getcomposer.org/download/1.9.0/composer.phar) cara instal komposer [klik di sini](https://www.malasngoding.com/cara-install-composer/)
+
+## Cara Install Project dengan github desktop
+Bagi yang sudah memiliki composer silahkan ikuti tutor dibawah ini
+- Klik tombol Clone or download
+- Klik Open in desktop
+- Klik open GithubDesktop.exe
+- Silahkan pilih lokasi path yang anda inginkan
+- Kemudian klik Clone
+- Tunggu sampai proses clone selesai
+- buka folder porject yang sudah di clone melalui terminal
+- lakukan update dependecies ketik
+```terminal
+composer update -vvv
+```
+- tunggu sampai proses selesai
+- buat database baru di phpmyadmin anda beri nama sesuka hati anda
+- copy file .env.example yang ada di dalam folder project dan ubah namanya menjadi .env
+```terminal
+cp .env.exaple .env
+```
+- lakukan generate key ketik 
+```terminal
+php artisan key:generate
+```
+- buka file .env
+- ubah konfigurasi database sesuai nama database yang anda buat tadi lalu simpan
+- finish project laravel bisa dijalankan dengan menggunakan development server dengan cara ketik
+```terminal
+php artisan serve
+```
+- lalu ctrl+klik pada http://127.0.0.0:8000
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
