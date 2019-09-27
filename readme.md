@@ -9,9 +9,9 @@
 
 ## Cara Install Composer
 Untuk menginstal project ini anda harus bahan yang harus dibutuhkan yaitu
-- Composer bagi yang belum install composer silahkan download [Klik di sini](https://getcomposer.org/download/1.9.0/composer.phar) cara instal komposer [klik di sini](https://www.malasngoding.com/cara-install-composer/)
+- Composer bagi yang belum install composer silahkan download [Klik di sini](https://getcomposer.org/download/1.9.0/composer.phar) cara instal composer [klik di sini](https://www.malasngoding.com/cara-install-composer/)
 
-## Cara Install Project dengan github desktop
+## Cara Install Project DENGAN github desktop
 Bagi yang sudah memiliki composer silahkan ikuti tutor dibawah ini
 - Klik tombol Clone or download
 - Klik Open in desktop
@@ -42,7 +42,7 @@ php artisan serve
 ```
 - Lalu ctrl+klik pada http://127.0.0.0:8000
 
-## Cara instal project tanpa github desktop
+## Cara instal project TANPA github desktop
 Bagi yang sudah memiliki composer silahkan ikuti tutor dibawah ini
 - Klik tombol Clone or download
 - Silahkan pilih lokasi path yang anda inginkan
@@ -54,23 +54,23 @@ Bagi yang sudah memiliki composer silahkan ikuti tutor dibawah ini
 ```terminal
 composer update -vvv
 ```
-- tunggu sampai proses selesai
-- buat database baru di phpmyadmin anda beri nama sesuka hati anda
-- copy file .env.example yang ada di dalam folder project dan ubah namanya menjadi .env
+- Tunggu sampai proses selesai
+- Buat database baru di phpmyadmin anda beri nama sesuka hati anda
+- Copy file .env.example yang ada di dalam folder project dan ubah namanya menjadi .env
 ```terminal
 cp .env.exaple .env
 ```
-- lakukan generate key ketik 
+- Lakukan generate key ketik 
 ```terminal
 php artisan key:generate
 ```
-- buka file .env
-- ubah konfigurasi database sesuai nama database yang anda buat tadi lalu simpan
-- finish project laravel bisa dijalankan dengan menggunakan development server dengan cara ketik
+- Buka file .env
+- Ubah konfigurasi database sesuai nama database yang anda buat tadi lalu simpan
+- Finish project laravel bisa dijalankan dengan menggunakan development server dengan cara ketik
 ```terminal
 php artisan serve
 ```
-- lalu ctrl+klik pada http://127.0.0.0:8000
+- Lalu ctrl+klik pada http://127.0.0.0:8000
 
 ## About Laravel
 
