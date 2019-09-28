@@ -20,7 +20,7 @@ class CekRole
         if ($request->user()->hasRole($roles) || !$roles) {
             return $next($request);
         }
-        return abort(403, 'Access Permitted');
+        return abort(403, 'Access Forbidden');
     }
 
     private function CekRoute($route)
