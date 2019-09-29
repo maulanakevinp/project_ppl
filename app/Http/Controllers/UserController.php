@@ -146,7 +146,7 @@ class UserController extends Controller
     {
         $user = User::onlyTrashed()->where('id', $id);
         $image = DB::table('users')->where('id', $id)->first();
-        $delete = File::delete(public_path() . '/img/profile/' . $image->image);
+        $delete = File::delete(public_path('img/profile/' . $image->image));
 
         if ($delete) {
             $user->forceDelete();
