@@ -53,7 +53,7 @@ class UserSubmenuTableSeeder extends Seeder
 
         DB::table('user_submenu')->insert([
             'menu_id' => 4,
-            'title' => 'Edit Profil',
+            'title' => 'Edit Profile',
             'url' => 'edit-profile',
             'icon' => 'fas fa-fw fa-user-edit',
             'is_active' => 1
