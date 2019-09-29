@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-{{ $title }} - {{ config('app.name') }}
+{{ $subtitle }} - {{ config('app.name') }}
 @endsection
 @section('container')
 <!-- Begin Page Content -->
@@ -8,8 +8,8 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('role.index') }}">{{ __('Role') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('role.index') }}">{{ $title }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $subtitle }}</li>
         </ol>
     </nav>
             @if ($message = Session::get('success'))

@@ -50,9 +50,10 @@ class RoleController extends Controller
         $menu = UserMenu::where('id', '!=', 1)
             ->orderBy('id', 'asc')
             ->get();
-        $title = 'Role Access';
+        $title = 'Role Management';
+        $subtitle = 'Role Access';
         $role = UserRole::find($id);
-        return view('role.edit', compact('menu', 'title', 'role'));
+        return view('role.edit', compact('menu', 'subtitle', 'title', 'role'));
     }
 
     public function getRole($id)

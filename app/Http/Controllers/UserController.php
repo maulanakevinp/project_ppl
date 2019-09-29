@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\UserRole;
 use File;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -29,10 +30,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $title = 'Add User';
+        $title = 'Users Management';
+        $subtitle = 'Add New User';
         $users = User::all();
         $user_role = UserRole::all();
-        return view('user.create', compact('title', 'users', 'user_role'));
+        return view('user.create', compact('title', 'subtitle', 'users', 'user_role'));
     }
 
     /**
@@ -45,28 +47,26 @@ class UserController extends Controller
     {
         $request->validate([
             'role' => 'required|numeric',
+            'nip' => 'required|numeric',
             'name' => 'required',
-            'nrp' => 'required|numeric|min:12',
-            'image' => 'required',
-            'password' => 'required|min:6|required_with:confirm_password|same:confirm_password',
-            'confirm_password' => 'required|min:6'
+            'image' => 'required'
         ]);
 
         $file = $request->file('image');
         $file_name = time() . "_" . $file->getClientOriginalName();
-        $move = $file->move('img/profile', $file_name);
 
-        if ($move) {
+        if ($file->move(public_path('img/profile'), $file_name)) {
             User::create([
                 'role_id' => $request->role,
+                'nip' => $request->nip,
                 'name' => $request->name,
-                'nrp' => $request->nrp,
                 'image' => $file_name,
-                'password' => Hash::make($request->confirm_password),
+                'password' => Hash::make('rahasia'),
+                'reset_password' => Hash::make('rahasia')
             ]);
-            return redirect('/users')->with('success', 'Profile has been added');
+            return redirect('/users')->with('success', 'User has been added');
         } else {
-            return redirect('/users')->with('failed', 'Profile has not been added');
+            return redirect('/users')->with('failed', 'User has not been added');
         }
     }
 
@@ -90,10 +90,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Edit User';
+        $title = 'Users Management';
+        $subtitle = 'Edit User';
         $user = User::find($id);
         $user_role = UserRole::all();
-        return view('user.edit', compact('title', 'user', 'user_role'));
+        return view('user.edit', compact('title', 'subtitle', 'user', 'user_role'));
     }
 
     /**
@@ -108,41 +109,31 @@ class UserController extends Controller
         $user = User::find($id);
         $request->validate([
             'role' => 'required',
-            'nrp' => 'required|numeric',
+            'nip' => 'required|numeric',
             'name' => 'required'
         ]);
 
         $file = $request->file('image');
-
         if (!empty($file)) {
             $file_name = time() . "_" . $file->getClientOriginalName();
-            $delete = File::delete('img/profile/' . $user->image);
-
-            if ($delete) {
-                $move = $file->move('img/profile', $file_name);
-                if ($move) {
-                    User::where('id', $id)->update([
-                        'role_id' => $request->role,
-                        'name' => $request->name,
-                        'image' => $file_name,
-                        'nrp' => $request->nrp
-                    ]);
-                    return redirect('/users')->with('success', 'Profile has been updated');
-                } else {
-                    return redirect('/users' . '/' . $id . '/edit')->with('failed', 'Photo cannot moved');
+            if ($file->move(public_path('img/profile'), $file_name)) {
+                if ($user->image != "default.jpg") {
+                    File::delete(public_path('img/profile/' . $user->image));
                 }
+                $user->image = $file_name;
             } else {
-                return redirect('/users' . '/' . $id . '/edit')->with('failed', 'Photo cannot deleted');
+                return redirect('/users' . '/' . $id . '/edit')->with('failed', 'Photo cannot moved');
             }
-        } else {
-            User::where('id', $id)->update([
-                'role_id' => $request->role,
-                'name' => $request->name,
-                'nrp' => $request->nrp
-            ]);
-
-            return redirect('/users')->with('success', 'Profile has been updated');
         }
+
+        User::where('id', $id)->update([
+            'role_id' => $request->role,
+            'name' => $request->name,
+            'image' => $user->image,
+            'nip' => $request->nip
+        ]);
+
+        return redirect('/users')->with('success', 'User has been updated');
     }
 
     /**
@@ -153,15 +144,54 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $delete = File::delete('img/profile/' . $user->image);
+        $user = User::onlyTrashed()->where('id', $id);
+        $image = DB::table('users')->where('id', $id)->first();
+        $delete = File::delete(public_path() . '/img/profile/' . $image->image);
 
         if ($delete) {
-            User::destroy($id);
-            return redirect('/users')->with('success', 'Profile has been deleted');
+            $user->forceDelete();
+            return redirect('/users')->with('success', 'User has been deleted');
         } else {
-            return redirect('/users')->with('failed', 'Profile has not been deleted');
+            return redirect('/users')->with('failed', 'User has not been deleted');
         }
+    }
+
+    public function softdelete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/users')->with('success', 'User has been deleted');
+    }
+
+    public function trash()
+    {
+        $title = 'Users Management';
+        $subtitle = 'Users Trash';
+        $users = User::onlyTrashed()->get();
+        return view('user.trash', compact('title', 'subtitle', 'users'));
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->where('id', $id);
+        $user->restore();
+        return redirect('/users')->with('success', 'User has been restored');
+    }
+
+    public function restoreAll()
+    {
+        $user = User::onlyTrashed();
+        $user->restore();
+        return redirect('/users')->with('success', 'User has been restored');
+    }
+
+    public function resetPassword(Request $request, $id)
+    {
+        $user = User::find($id);
+        User::where('id', $id)->update([
+            'password' => $user->reset_password
+        ]);
+        return redirect('/users')->with('success', 'Password has been reset');
     }
 
     public function editProfile()
@@ -174,39 +204,29 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $request->validate([
-            'nrp' => 'required|numeric',
             'name' => 'required'
         ]);
 
         $file = $request->file('image');
 
+        $file = $request->file('image');
         if (!empty($file)) {
             $file_name = time() . "_" . $file->getClientOriginalName();
-            $delete = File::delete('img/profile/' . $user->image);
-
-            if ($delete) {
-                $move = $file->move('img/profile', $file_name);
-                if ($move) {
-                    User::where('id', $id)->update([
-                        'name' => $request->name,
-                        'image' => $file_name,
-                        'nrp' => $request->nrp
-                    ]);
-                    return redirect('/my-profile')->with('success', 'Profile has been updated');
-                } else {
-                    return redirect('/my-profile')->with('failed', 'Photo cannot moved');
+            if ($file->move(public_path('img/profile'), $file_name)) {
+                if ($user->image != "default.jpg") {
+                    File::delete(public_path('img/profile/' . $user->image));
                 }
+                $user->image = $file_name;
             } else {
-                return redirect('/my-profile')->with('failed', 'Photo cannot deleted');
+                return redirect('/my-profile')->with('failed', 'Photo cannot moved');
             }
-        } else {
-            User::where('id', $id)->update([
-                'name' => $request->name,
-                'nrp' => $request->nrp
-            ]);
-
-            return redirect('/my-profile')->with('success', 'Profile has been updated');
         }
+
+        User::where('id', $id)->update([
+            'name' => $request->name,
+            'image' => $user->image,
+        ]);
+        return redirect('/my-profile')->with('failed', 'Photo cannot moved');
     }
 
     public function changePassword()

@@ -17,7 +17,7 @@
                         @method('patch')
                         @csrf
                         <div class="form-group">
-                            <label for="current_password">Password</label>
+                            <label for="current_password">{{__('Password')}}</label>
                             <input type="password" class="form-control  @error('current_password') is-invalid @enderror" id="current_password" name="current_password">
                             @error('current_password')
                             <div class="invalid-feedback">
@@ -26,7 +26,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="new_password">New Password</label>
+                            <label for="new_password">{{__('New Password')}}</label>
                             <input type="password" class="form-control  @error('new_password') is-invalid @enderror" id="new_password" name="new_password">
                             @error('new_password')
                             <div class="invalid-feedback">
@@ -35,7 +35,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="confirm_password">Confirm Password</label>
+                            <label for="confirm_password">{{__('Confirm Password')}}</label>
                             <input type="password" class="form-control  @error('confirm_password') is-invalid @enderror" id="confirm_password" name="confirm_password">
                             @error('confirm_password')
                             <div class="invalid-feedback">
@@ -44,7 +44,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block">Change Password</button>
+                            <button type="submit" class="btn btn-success btn-block">{{__('Change Password')}}</button>
                         </div>
                     </form>
                 </div>

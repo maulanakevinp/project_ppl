@@ -14,11 +14,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'nrp' => 'required|numeric',
+            'nip' => 'required|numeric',
             'password' => 'required',
         ]);
-        if (!auth()->attempt(['nrp' => $request->nrp, 'password' => $request->password])) {
-            return redirect('/login')->with('failed', 'NRP or Password is wrong');
+        if (!auth()->attempt(['nip' => $request->nip, 'password' => $request->password])) {
+            return redirect('/login')->with('failed', 'NIP or Password is wrong');
         }
 
         return redirect()->route('my-profile');

@@ -32,7 +32,7 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title"> {{ Auth::user()->name }} </h5>
-                    <p class="card-text"> {{ Auth::user()->nrp }} </p>
+                    <p class="card-text"> {{ Auth::user()->nip }} </p>
                     <a href=" {{ route('edit-profile') }} " class="btn btn-warning btn-sm">Edit</a>
                 </div>
             </div>

@@ -26,8 +26,8 @@
                                 <form class="user" method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group row">
-                                        <input id="nrp" type="text" class="form-control form-control-user @error('nrp') is-invalid @enderror" name="nrp" value="{{ old('nrp') }}" autofocus placeholder="Enter NRP...">
-                                        @error('nrp')
+                                        <input id="nip" type="text" class="form-control form-control-user @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip') }}" autofocus placeholder="Enter NIP...">
+                                        @error('nip')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

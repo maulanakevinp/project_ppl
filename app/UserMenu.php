@@ -28,6 +28,11 @@ class UserMenu extends Model
      */
     protected $fillable = ['menu'];
 
+    public function submenu()
+    {
+        return $this->hasMany('App\UserSubmenu');
+    }
+
     public static function getMenuByRole($role_id)
     {
         return DB::table('user_menu')

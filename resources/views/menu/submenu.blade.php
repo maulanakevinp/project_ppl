@@ -50,7 +50,7 @@
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $submenu->title }}</td>
-                                    <td>{{ $submenu->menu }}</td>
+                                    <td>{{ $submenu->menu->menu }}</td>
                                     <td>{{ $submenu->url }}</td>
                                     <td>{{ $submenu->icon }}</td>
                                     <td>{{ $submenu->is_active }}</td>

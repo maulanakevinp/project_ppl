@@ -17,7 +17,7 @@ class SubmenuController extends Controller
     {
         $title = 'Submenu Management';
         $user_menu = UserMenu::all();
-        $user_submenu = UserSubmenu::getSubmenu();
+        $user_submenu = UserSubmenu::all();
         return view('menu.submenu', compact('title', 'user_submenu', 'user_menu'));
     }
 

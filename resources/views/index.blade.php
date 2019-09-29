@@ -103,7 +103,7 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-light">
                         <tr>
-                            <th>{{__('NRP')}}</th>
+                            <th>{{__('NIP')}}</th>
                             <th>{{__('Name')}}</th>
                             <th>{{__('Role')}}</th>
                         </tr>
@@ -111,7 +111,7 @@
                     <tbody>
                         @foreach ($users as $user)
                         <tr>
-                            <td>{{ $user->nrp }}</td>
+                            <td>{{ $user->nip }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->role->role }}</td>
                         </tr>

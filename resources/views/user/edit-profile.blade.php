@@ -18,13 +18,13 @@
                         @method('patch')
                         @csrf
                         <div class="form-group row">
-                            <label for="email" class="col-sm-2 col-form-label">NRP</label>
+                            <label for="nip" class="col-sm-2 col-form-label">{{__('NIP')}}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nrp" name="nrp" value="{{ Auth::user()->nrp }}">
+                                <input disabled type="text" class="form-control" id="nip" name="nip" value="{{ Auth::user()->nip }}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">Full name</label>
+                            <label for="name" class="col-sm-2 col-form-label">{{__('Full name')}}</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ Auth::user()->name }}">
                                 @error('name')
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-2">
-                                Picture
+                                {{__('Picture')}}
                             </div>
                             <div class="col-sm-10">
                                 <div class="row">
@@ -46,7 +46,7 @@
                                     <div class="col-sm-9">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="image" name="image">
-                                            <label class="custom-file-label" for="image">Choose file</label>
+                                            <label class="custom-file-label" for="image">{{__('Choose file')}}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                         <div class="form-group row justify-content-end">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success btn-block">
-                                    Edit
+                                    {{__('Edit')}}
                                 </button>
                             </div>
                         </div>

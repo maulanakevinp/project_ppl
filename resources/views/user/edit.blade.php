@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-{{ $title }} - {{ config('app.name') }}
+{{ $subtitle }} - {{ config('app.name') }}
 @endsection
 @section('container')
 
@@ -8,20 +8,11 @@
 <div class="container-fluid">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ __('Users Management') }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ $title }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $subtitle }}</li>
         </ol>
     </nav>
-{{-- 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif --}}
+
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -37,7 +28,7 @@
         <div class="col-lg-6">
             <div class="card shadow h-100">
                 <div class="card-header">
-                    <h5 class="m-0 pt-1 font-weight-bold text-success">{{ $title }}</h5>
+                    <h5 class="m-0 pt-1 font-weight-bold text-success">{{ $subtitle }}</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('users.update',$user->id) }}" method="post" enctype="multipart/form-data">
@@ -66,10 +57,10 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nrp" class="col-sm-2 col-form-label">{{__('NRP')}}</label>
+                            <label for="nip" class="col-sm-2 col-form-label">{{__('NIP')}}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nrp" name="nrp" value="{{ $user->nrp }}" autocomplete="off">
-                                @error('nrp')
+                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $user->nip }}" autocomplete="off">
+                                @error('nip')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
