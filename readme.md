@@ -36,6 +36,10 @@ php artisan key:generate
 ```
 - Buka file .env
 - Ubah konfigurasi database sesuai nama database yang anda buat tadi lalu simpan
+- lakukan migrate ketik :
+```terminal
+php artisan migrate:refresh --seed
+```
 - Finish project laravel bisa dijalankan dengan menggunakan development server dengan cara ketik
 ```terminal
 php artisan serve
@@ -66,6 +70,10 @@ php artisan key:generate
 ```
 - Buka file .env
 - Ubah konfigurasi database sesuai nama database yang anda buat tadi lalu simpan
+- lakukan migrate ketik :
+```terminal
+php artisan migrate:refresh --seed
+```
 - Finish project laravel bisa dijalankan dengan menggunakan development server dengan cara ketik
 ```terminal
 php artisan serve
