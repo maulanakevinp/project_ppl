@@ -242,17 +242,19 @@ class UserController extends Controller
             'new_password' => 'required|min:6|required_with:confirm_password|same:confirm_password',
             'confirm_password' => 'required|min:6'
         ]);
-
         $user = User::find($id);
-
         if (Hash::check($request->current_password, $user->password)) {
-            if ($request->new_password == $request->confirm_password) {
-                User::where('id', $id)->update([
-                    'password' => Hash::make($request->confirm_password)
-                ]);
-                return redirect('/my-profile')->with('success', 'Password has been updated');
+            if ($request->current_password == $request->confirm_password) {
+                return redirect('/my-profile')->with('failed', 'Password has not been updated, nothing changed in password');
             } else {
-                return redirect('/my-profile')->with('failed', 'Password not match, Password has not been updated');
+                if ($request->new_password == $request->confirm_password) {
+                    User::where('id', $id)->update([
+                        'password' => Hash::make($request->confirm_password)
+                    ]);
+                    return redirect('/my-profile')->with('success', 'Password has been updated');
+                } else {
+                    return redirect('/my-profile')->with('failed', 'Password not match, Password has not been updated');
+                }
             }
         } else {
             return redirect('/my-profile')->with('failed', 'Password not match with old password, Password has not been updated');
