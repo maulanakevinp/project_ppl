@@ -28,7 +28,7 @@ composer update -vvv
 - Buat database baru di phpmyadmin anda beri nama sesuka hati anda
 - Copy file .env.example yang ada di dalam folder project dan ubah namanya menjadi .env
 ```terminal
-cp .env.exaple .env
+cp .env.example .env
 ```
 - Lakukan generate key ketik 
 ```terminal
@@ -62,7 +62,7 @@ composer update -vvv
 - Buat database baru di phpmyadmin anda beri nama sesuka hati anda
 - Copy file .env.example yang ada di dalam folder project dan ubah namanya menjadi .env
 ```terminal
-cp .env.exaple .env
+cp .env.example .env
 ```
 - Lakukan generate key ketik 
 ```terminal
