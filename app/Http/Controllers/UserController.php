@@ -49,7 +49,7 @@ class UserController extends Controller
             'role' => 'required|numeric',
             'nip' => 'required|numeric',
             'name' => 'required',
-            'image' => 'required'
+            'image' => 'required|file|image|mimes:jpeg,png,gif,webp|max:2048'
         ]);
 
         $file = $request->file('image');
@@ -110,7 +110,8 @@ class UserController extends Controller
         $request->validate([
             'role' => 'required',
             'nip' => 'required|numeric',
-            'name' => 'required'
+            'name' => 'required',
+            'image' => 'file|image|mimes:jpeg,png,gif,webp|max:2048'
         ]);
 
         $file = $request->file('image');
@@ -204,7 +205,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'image' => 'file|image|mimes:jpeg,png,gif,webp|max:2048'
         ]);
 
         $file = $request->file('image');
