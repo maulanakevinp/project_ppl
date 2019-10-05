@@ -119,7 +119,7 @@
             <script type="text/javascript" src="https://tiles.unwiredmaps.com/js/leaflet-unwired.js"></script>
             <script type="text/javascript">
                 // Maps access token goes here
-                var key = 'ea80258fb28a64';
+                var key = 'pk.62f7b44696e23c4e0f011ce1fa7bb88b';
 
                 // Add layers that we need to the map
                 var streets = L.tileLayer.Unwired({key: key, scheme: "streets"});
