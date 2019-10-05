@@ -31,9 +31,24 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title"> {{ Auth::user()->name }} </h5>
-                    <p class="card-text"> {{ Auth::user()->nip }} </p>
-                    <a href=" {{ route('edit-profile') }} " class="btn btn-warning btn-sm">Edit</a>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 mb-1" for="">{{__('Full Name :')}}</label>
+                        <div class="col-sm-9">
+                            <h5 class="card-title">{{  Auth::user()->name }}</h5>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 mb-1" for="">{{__('NIP :')}}</label>
+                        <div class="col-sm-9">
+                            <p class="card-text">{{ Auth::user()->nip }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 mb-1" for="">{{__('Position : ')}}</label>
+                        <div class="col-sm-9">
+                            <p class="card-text">{{ Auth::user()->role->role }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

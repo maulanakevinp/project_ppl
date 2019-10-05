@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'nip' => 'required|numeric',
+            'nip' => 'required|size:18',
             'password' => 'required',
         ]);
         if (!auth()->attempt(['nip' => $request->nip, 'password' => $request->password])) {

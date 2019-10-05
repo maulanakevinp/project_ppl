@@ -47,7 +47,7 @@ class UserController extends Controller
     {
         $request->validate([
             'role' => 'required|numeric',
-            'nip' => 'required|numeric',
+            'nip' => 'required|size:18',
             'name' => 'required',
             'image' => 'required|image|mimes:jpeg,png,gif|max:2048'
         ]);
@@ -109,7 +109,7 @@ class UserController extends Controller
         $user = User::find($id);
         $request->validate([
             'role' => 'required',
-            'nip' => 'required|numeric',
+            'nip' => 'required|size:18',
             'name' => 'required',
             'image' => 'image|mimes:jpeg,png,gif|max:2048'
         ]);

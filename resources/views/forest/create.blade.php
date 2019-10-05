@@ -25,7 +25,7 @@
     </div>
     @endif
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-6">
             <div class="card shadow h-100">
                 <div class="card-header">
                     <h5 class="m-0 pt-1 font-weight-bold text-success">{{ $title }}</h5>
@@ -34,8 +34,8 @@
                     <form action=" {{ route('forests.store') }} " method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label for="nik" class="col-sm-2 col-form-label">{{__('NIK')}}</label>
-                            <div class="col-sm-10">
+                            <label for="nik" class="col-sm-3 col-form-label">{{__('NIK')}}</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ old('nik') }}" autocomplete="off">
                                 @error('nik')
                                     <div class="invalid-feedback">
@@ -45,8 +45,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="owner" class="col-sm-2 col-form-label">{{__('Full name')}}</label>
-                            <div class="col-sm-10">
+                            <label for="owner" class="col-sm-3 col-form-label">{{__('Full name')}}</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('owner') is-invalid @enderror" id="owner" name="owner" value="{{ old('owner') }}" autocomplete="off">
                                 @error('owner')
                                     <div class="invalid-feedback">
@@ -56,8 +56,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="city" class="col-sm-2 col-form-label">{{__('City')}}</label>
-                            <div class="col-sm-10">
+                            <label for="city" class="col-sm-3 col-form-label">{{__('City')}}</label>
+                            <div class="col-sm-9">
                                 <select class="form-control @error('city') is-invalid @enderror" name="city" id="city">
                                     <option value="">Choose City</option>
                                 </select>
@@ -69,8 +69,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="village" class="col-sm-2 col-form-label">{{__('Village')}}</label>
-                            <div class="col-sm-10">
+                            <label for="village" class="col-sm-3 col-form-label">{{__('Village')}}</label>
+                            <div class="col-sm-9">
                                 <select class="form-control @error('village') is-invalid @enderror" name="village" id="village">
                                     <option value="">Choose Village</option>
                                 </select>
@@ -82,8 +82,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="address" class="col-sm-2 col-form-label">{{__('Address')}}</label>
-                            <div class="col-sm-10">
+                            <label for="address" class="col-sm-3 col-form-label">{{__('Address')}}</label>
+                            <div class="col-sm-9">
                                 <textarea rows="5" class="form-control @error('address') is-invalid @enderror" id="address" name="address"  autocomplete="off">
                                     {{ old('address') }}
                                 </textarea>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="form-group row justify-content-end">
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
                                 <button type="submit" class="btn btn-success btn-block">
                                     {{__('Add New Forest')}}
                                 </button>

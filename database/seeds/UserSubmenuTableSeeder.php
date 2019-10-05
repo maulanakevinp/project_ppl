@@ -41,7 +41,7 @@ class UserSubmenuTableSeeder extends Seeder
             'title' => 'Forests Management',
             'url' => '/forests',
             'icon' => 'fas fa-fw fa-tree',
-            'is_active' => 0
+            'is_active' => 1
         ]);
 
         DB::table('user_submenu')->insert([
