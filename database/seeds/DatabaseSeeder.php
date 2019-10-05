@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             UserMenuTableSeeder::class,
             UserAccessMenuTableSeeder::class,
             UserSubmenuTableSeeder::class,
+            CitiesTableSeeder::class,
+            DistrictsTableSeeder::class,
         ]);
     }
 }

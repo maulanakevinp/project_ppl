@@ -48,5 +48,6 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
 
     Route::group(['roles' => 'Pegawai'], function () {
         Route::resource('/forests', 'ForestController');
+        Route::post('/get-districts', 'ForestController@getDistricts')->name('get-districts');
     });
 });

@@ -16,15 +16,16 @@ class CreateForestsTable extends Migration
         Schema::create('forests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('nik');
+            $table->char('nik', 16)->unique();
             $table->string('owner');
-            $table->string('city');
-            $table->string('village');
-            $table->string('address');
-            $table->multiPolygon('geometry');
+            $table->unsignedBigInteger('district_id');
+            $table->string('address')->nullable();
+            $table->multiPolygon('geometry')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('district_id')->references('id')->on('districts')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

@@ -32,6 +32,7 @@
 
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset('') }}">
+    <link href="https://leafletjs-cdn.s3.amazonaws.com/content/leaflet/master/leaflet.css" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -52,11 +53,8 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     @yield('container')
-
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -97,7 +95,8 @@
             </div>
         </div>
     </div>
-
+    <!-- provide the csrf token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -116,12 +115,32 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+
     <script>
         $(document).ready(function(){
             $('#dataTable').DataTable();
             $(".custom-file-input").on("change", function() {
                 var fileName = $(this).val().split("\\").pop();
                 $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+            $("#city").on("change", function() {
+                const city_id = $(this).val();
+                const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                if (city_id != '') {
+                    $.ajax({
+                        url: "{{ route('get-districts') }}",
+                        type: 'post',
+                        data: {
+                            _token: CSRF_TOKEN,
+                            id: city_id
+                        },
+                        success: function(data) {
+                            $("#district").html(data);
+                        }
+                    });
+                } else {
+                    $("#district").html('<option value="">Choose district</option>');
+                }
             });
             $('.accessMenu').on('click', function() {
                 const menuId = $(this).data('menu');

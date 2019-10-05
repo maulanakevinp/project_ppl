@@ -24,8 +24,8 @@
         {{ session('failed') }}
     </div>
     @endif
-    <div class="row">
-        <div class="col-lg-6">
+    <div class="row mb-5">
+        <div class="col-lg-6 mb-3">
             <div class="card shadow h-100">
                 <div class="card-header">
                     <h5 class="m-0 pt-1 font-weight-bold text-success">{{ $title }}</h5>
@@ -59,7 +59,10 @@
                             <label for="city" class="col-sm-3 col-form-label">{{__('City')}}</label>
                             <div class="col-sm-9">
                                 <select class="form-control @error('city') is-invalid @enderror" name="city" id="city">
-                                    <option value="">Choose City</option>
+                                    <option value="">{{__('Choose city')}}</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}">{{ $city->city }}</option>
+                                    @endforeach
                                 </select>
                                 @error('city')
                                     <div class="invalid-feedback">
@@ -69,12 +72,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="village" class="col-sm-3 col-form-label">{{__('Village')}}</label>
+                            <label for="district" class="col-sm-3 col-form-label">{{__('District')}}</label>
                             <div class="col-sm-9">
-                                <select class="form-control @error('village') is-invalid @enderror" name="village" id="village">
-                                    <option value="">Choose Village</option>
+                                <select class="form-control @error('district') is-invalid @enderror" name="district" id="district">
+                                    <option value="">{{__('Choose district')}}</option>
                                 </select>
-                                @error('village')
+                                @error('district')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -84,9 +87,7 @@
                         <div class="form-group row">
                             <label for="address" class="col-sm-3 col-form-label">{{__('Address')}}</label>
                             <div class="col-sm-9">
-                                <textarea rows="5" class="form-control @error('address') is-invalid @enderror" id="address" name="address"  autocomplete="off">
-                                    {{ old('address') }}
-                                </textarea>
+                                <textarea rows="5" class="form-control @error('address') is-invalid @enderror" id="address" name="address"  autocomplete="off">{{ old('address') }}</textarea>
                                 @error('address')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -105,10 +106,46 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header text-success">
+                    <h5 class="m-0 pt-1 font-weight-bold text-success">{{__('Maps')}}</h5>
+                </div>
+                <div class="card-body">
+                    <div id='map' style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+            <script type="text/javascript" src="https://leafletjs-cdn.s3.amazonaws.com/content/leaflet/master/leaflet.js"></script>
+            <script type="text/javascript" src="https://tiles.unwiredmaps.com/js/leaflet-unwired.js"></script>
+            <script type="text/javascript">
+                // Maps access token goes here
+                var key = 'pk.a5c3fbf2119bfb2275b62eddbccd76b3';
+
+                // Add layers that we need to the map
+                var streets = L.tileLayer.Unwired({key: key, scheme: "streets"});
+
+                // Initialize the map
+                var map = L.map('map', {
+                    center: [-8.1688563, 113.7021772], // Map loads with this location as center
+                    zoom: 14,
+                    scrollWheelZoom: false,
+                    layers: [streets] // Show 'streets' by default
+                });
+
+                // Add the 'scale' control
+                L.control.scale().addTo(map);
+
+                // Add the 'layers' control
+                L.control.layers({
+                    "Streets": streets
+                }).addTo(map);
+
+            </script>
+
+        </div>
     </div>
 
 </div>
 <!-- /.container-fluid -->
-
 
 @endsection

@@ -41,9 +41,8 @@
                             <th>{{__('NIK')}}</th>
                             <th>{{__('Owner')}}</th>
                             <th>{{__('City')}}</th>
-                            <th>{{__('Village')}}</th>
+                            <th>{{__('District')}}</th>
                             <th>{{__('Address')}}</th>
-                            <th>{{__('Employee')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
                     </thead>
@@ -53,10 +52,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $forest->nik }}</td>
                             <td>{{ $forest->owner }}</td>
-                            <td>{{ $forest->city }}</td>
-                            <td>{{ $forest->village }}</td>
+                            <td>{{ $forest->district->city->city }}</td>
+                            <td>{{ $forest->district->district }}</td>
                             <td>{{ $forest->address }}</td>
-                            <td>{{ $forest->users->name }}</td>
                             <td>
                                 <a href="{{route('forests.show',$forest->id)}}" class="badge badge-success">{{__('detail')}}</a>
                                 <a href="{{route('forests.edit',$forest->id)}}" class="badge badge-warning">{{__('edit')}}</a>

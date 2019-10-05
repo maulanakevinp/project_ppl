@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
+use App\District;
 use App\Forest;
 use Illuminate\Http\Request;
 
@@ -26,8 +28,10 @@ class ForestController extends Controller
      */
     public function create()
     {
-        $title = 'Add Forest';
-        return view('forest.create', compact('title'));
+        $title = 'Forests Management';
+        $subtitle = 'Add New Forest';
+        $cities = City::all();
+        return view('forest.create', compact('title', 'cities'));
     }
 
     /**
@@ -49,8 +53,10 @@ class ForestController extends Controller
      */
     public function show($id)
     {
-        $title = 'Forest Management';
-        return view('forest.show', compact('title'));
+        $forest = Forest::find($id);
+        $title = 'Forests Management';
+        $subtitle = $forest->owner;
+        return view('forest.show', compact('title', 'subtitle', 'forest'));
     }
 
     /**
@@ -61,8 +67,10 @@ class ForestController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Edit Forest';
-        return view('forest.edit', compact('title'));
+        $forest = Forest::find($id);
+        $title = 'Forests Management';
+        $subtitle = 'Edit Forest';
+        return view('forest.edit', compact('title', 'subtitle', 'forest'));
     }
 
     /**
@@ -86,5 +94,16 @@ class ForestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDistricts(Request $request)
+    {
+        $id = $request->id;
+        $districts = District::where('city_id', $id)->get();
+
+        echo "<option value=''> Choose district </option>";
+        foreach ($districts as $district) {
+            echo "<option value='" . $district['id'] . "'>" . $district['district'] . "</option>";
+        }
     }
 }

@@ -10,4 +10,9 @@ class Forest extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function district()
+    {
+        return $this->belongsTo('App\District');
+    }
 }
