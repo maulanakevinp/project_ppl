@@ -1,58 +1,43 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('title')
-{{ $title }} - {{ config('app.name') }}
+{{ __('user.change_password') }} - {{ config('app.name') }}
 @endsection
-@section('container')
+@section('content')
 
 <!-- Begin Page Content -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-6">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
             <div class="card shadow h-100">
                 <div class="card-header">
-                    <h5 class="m-0 pt-1 font-weight-bold text-success">{{ $title }}</h5>
+                    <h5 class="m-0 pt-1 font-weight-bold">{{ __('user.change_password') }}</h5>
                 </div>
                 <div class="card-body">
                     <form action=" {{ route('update-password', [ 'id' => Auth::user()->id ]) }} " method="post">
                         @method('patch')
                         @csrf
                         <div class="form-group">
-                            <label for="current_password">{{__('Password')}}</label>
-                            <input type="password" class="form-control  @error('current_password') is-invalid @enderror" id="current_password" name="current_password">
-                            @error('current_password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                            <label for="current_password">{{__('user.current_password')}}</label>
+                            <input type="password" class="form-control {{ $errors->has('current_password') ? ' is-invalid' : '' }}" id="current_password" name="current_password">
+                            {!! $errors->first('current_password', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
                         <div class="form-group">
-                            <label for="new_password">{{__('New Password')}}</label>
-                            <input type="password" class="form-control  @error('new_password') is-invalid @enderror" id="new_password" name="new_password">
-                            @error('new_password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                            <label for="new_password">{{__('user.new_password')}}</label>
+                            <input type="password" class="form-control {{ $errors->has('new_password') ? ' is-invalid' : '' }}" id="new_password" name="new_password">
+                            {!! $errors->first('new_password', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
                         <div class="form-group">
-                            <label for="confirm_password">{{__('Confirm Password')}}</label>
-                            <input type="password" class="form-control  @error('confirm_password') is-invalid @enderror" id="confirm_password" name="confirm_password">
-                            @error('confirm_password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                            <label for="confirm_password">{{__('user.confirm_password')}}</label>
+                            <input type="password" class="form-control {{ $errors->has('confirm_password') ? ' is-invalid' : '' }}" id="confirm_password" name="confirm_password">
+                            {!! $errors->first('confirm_password', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block">{{__('Change Password')}}</button>
+                            <button type="submit" class="btn btn-success btn-block">{{__('user.change_password')}}</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
 <!-- /.container-fluid -->
 
 @endsection

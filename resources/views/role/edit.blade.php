@@ -1,10 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('title')
 {{ $subtitle }} - {{ config('app.name') }}
 @endsection
-@section('container')
-<!-- Begin Page Content -->
-<div class="container-fluid">
+@section('content')
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -12,16 +10,16 @@
             <li class="breadcrumb-item active" aria-current="page">{{ $subtitle }}</li>
         </ol>
     </nav>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     {{ $message }}
                 </div>
             @endif
-    <div class="row">
-        <div class="col-lg-6">
             <div class="card shadow h-100">
                 <div class="card-header">
-                    <h5 id="judul" class="m-0 pt-1 font-weight-bold text-success">
+                    <h5 id="judul" class="m-0 pt-1 font-weight-bold">
                         {{ __('Role :')}} {{ $role->role }}
                     </h5>
                 </div>
@@ -50,12 +48,7 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-</div>
-<!-- /.container-fluid -->
 
 @endsection

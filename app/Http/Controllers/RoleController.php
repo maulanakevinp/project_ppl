@@ -17,7 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $title = 'Role Management';
+        $title = 'Users';
         $user_role = UserRole::all();
         return view('role.index', compact('title', 'user_role'));
     }
@@ -50,7 +50,7 @@ class RoleController extends Controller
         $menu = UserMenu::where('id', '!=', 1)
             ->orderBy('id', 'asc')
             ->get();
-        $title = 'Role Management';
+        $title = 'Users';
         $subtitle = 'Role Access';
         $role = UserRole::find($id);
         return view('role.edit', compact('menu', 'subtitle', 'title', 'role'));

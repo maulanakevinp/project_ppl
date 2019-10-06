@@ -8,7 +8,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -21,7 +21,7 @@ class AuthController extends Controller
             return redirect('/login')->with('failed', 'NIP or Password is wrong');
         }
 
-        return redirect()->route('my-profile');
+        return redirect()->route('my_profile');
     }
 
     public function logout()

@@ -2,108 +2,131 @@
 
 namespace App\Http\Controllers;
 
-use App\City;
-use App\District;
 use App\Forest;
 use Illuminate\Http\Request;
 
 class ForestController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the forest.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $forests = Forest::all();
-        $title = 'Forests Management';
-        return view('forest.index', compact('title', 'forests'));
+        $this->authorize('manage_forest');
+
+        $title = 'Forests';
+        $forestQuery = Forest::query();
+        $forestQuery->where('name', 'like', '%' . request('q') . '%');
+        $forests = $forestQuery->paginate(25);
+
+        return view('forests.index', compact('forests', 'title'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new forest.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        $title = 'Forests Management';
-        $subtitle = 'Add New Forest';
-        $cities = City::all();
-        return view('forest.create', compact('title', 'cities'));
+        $this->authorize('create', new Forest);
+        $title = 'Forests';
+        return view('forests.create', compact('title'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created forest in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', new Forest);
+
+        $newForest = $request->validate([
+            'nik'               => 'required|size:16',
+            'name'              => 'required|max:60',
+            'owner_address'     => 'nullable|max:255',
+            'address'           => 'nullable|max:255',
+            'latitude'          => 'nullable|required_with:longitude|max:15',
+            'longitude'         => 'nullable|required_with:latitude|max:15',
+        ]);
+        $newForest['creator_id'] = auth()->id();
+
+        $forest = Forest::create($newForest);
+
+        return redirect()->route('forests.show', $forest);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified forest.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Forest  $forest
+     * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Forest $forest)
     {
-        $forest = Forest::find($id);
-        $title = 'Forests Management';
-        $subtitle = $forest->owner;
-        return view('forest.show', compact('title', 'subtitle', 'forest'));
+        $title = 'Forests';
+        return view('forests.show', compact('forest', 'title'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified forest.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Forest  $forest
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Forest $forest)
     {
-        $forest = Forest::find($id);
-        $title = 'Forests Management';
-        $subtitle = 'Edit Forest';
-        return view('forest.edit', compact('title', 'subtitle', 'forest'));
+        $this->authorize('update', $forest);
+        $title = 'Forests';
+        return view('forests.edit', compact('forest', 'title'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified forest in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Forest  $forest
+     * @return \Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Forest $forest)
     {
-        //
+        $this->authorize('update', $forest);
+
+        $forestData = $request->validate([
+            'nik'               => 'required|size:16',
+            'name'              => 'required|max:60',
+            'owner_address'     => 'nullable|max:255',
+            'address'           => 'nullable|max:255',
+            'latitude'          => 'nullable|required_with:longitude|max:15',
+            'longitude'         => 'nullable|required_with:latitude|max:15',
+        ]);
+        $forest->update($forestData);
+
+        return redirect()->route('forests.show', $forest);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified forest from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Forest  $forest
+     * @return \Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request, Forest $forest)
     {
-        //
-    }
+        $this->authorize('delete', $forest);
 
-    public function getDistricts(Request $request)
-    {
-        $id = $request->id;
-        $districts = District::where('city_id', $id)->get();
+        $request->validate(['forest_id' => 'required']);
 
-        echo "<option value=''> Choose district </option>";
-        foreach ($districts as $district) {
-            echo "<option value='" . $district['id'] . "'>" . $district['district'] . "</option>";
+        if ($request->get('forest_id') == $forest->id && $forest->delete()) {
+            return redirect()->route('forests.index');
         }
+
+        return back();
     }
 }

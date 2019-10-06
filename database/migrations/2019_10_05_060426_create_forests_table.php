@@ -14,19 +14,17 @@ class CreateForestsTable extends Migration
     public function up()
     {
         Schema::create('forests', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->char('nik', 16)->unique();
-            $table->string('owner');
-            $table->unsignedBigInteger('district_id');
+            $table->increments('id');
+            $table->char('nik', 16);
+            $table->string('name', 60);
+            $table->string('owner_address')->nullable();
             $table->string('address')->nullable();
-            $table->multiPolygon('geometry')->nullable();
+            $table->string('latitude', 15)->nullable();
+            $table->string('longitude', 15)->nullable();
+            $table->unsignedBigInteger('creator_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('district_id')->references('id')->on('districts')
-                ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

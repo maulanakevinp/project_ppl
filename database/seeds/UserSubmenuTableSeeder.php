@@ -11,7 +11,6 @@ class UserSubmenuTableSeeder extends Seeder
      */
     public function run()
     {
-
         DB::table('user_submenu')->insert([
             'menu_id' => 1,
             'title' => 'Users Management',
@@ -31,7 +30,7 @@ class UserSubmenuTableSeeder extends Seeder
         DB::table('user_submenu')->insert([
             'menu_id' => 2,
             'title' => 'Dashboard',
-            'url' => '/',
+            'url' => '/dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
             'is_active' => 0
         ]);
@@ -45,31 +44,15 @@ class UserSubmenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_submenu')->insert([
-            'menu_id' => 4,
-            'title' => 'My Profile',
-            'url' => '/my-profile',
-            'icon' => 'fas fa-fw fa-user',
+            'menu_id' => 3,
+            'title' => 'Forests Maps',
+            'url' => '/community_forests',
+            'icon' => 'fas fa-fw fa-map-marker-alt',
             'is_active' => 1
         ]);
 
         DB::table('user_submenu')->insert([
             'menu_id' => 4,
-            'title' => 'Edit Profile',
-            'url' => '/edit-profile',
-            'icon' => 'fas fa-fw fa-user-edit',
-            'is_active' => 1
-        ]);
-
-        DB::table('user_submenu')->insert([
-            'menu_id' => 4,
-            'title' => 'Change Password',
-            'url' => '/change-password',
-            'icon' => 'fas fa-fw fa-key',
-            'is_active' => 1
-        ]);
-
-        DB::table('user_submenu')->insert([
-            'menu_id' => 5,
             'title' => 'Menu Management',
             'url' => '/menu',
             'icon' => 'fas fa-fw fa-folder',
@@ -77,7 +60,7 @@ class UserSubmenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_submenu')->insert([
-            'menu_id' => 5,
+            'menu_id' => 4,
             'title' => 'Submenu Management',
             'url' => '/submenu',
             'icon' => 'fas fa-fw fa-folder-open',

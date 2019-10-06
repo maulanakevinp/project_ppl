@@ -1,10 +1,9 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('title')
-{{ $title }} - {{ config('app.name') }}
+{{ __('user.user_management') }} - {{ config('app.name') }}
 @endsection
-@section('container')
-<!-- Begin Page Content -->
-<div class="container-fluid">
+@section('content')
+
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -19,20 +18,18 @@
         {{ session('success') }}
     </div>
     @endif
-
     @if (session('failed'))
     <div class="alert alert-danger">
         {{ session('failed') }}
     </div>
     @endif
 
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 ">
-            <h5 class="m-0 pt-1 font-weight-bold text-success float-left">{{ $title }}</h5>
+            <h5 class="m-0 pt-1 font-weight-bold float-left">{{ __('user.user_management') }}</h5>
             <div class="btn-group float-right">
-                <a href="{{route('users.trash')}}" class="btn btn-sm btn-warning">{{ __('Trash') }}</a>
-                <a href="{{route('users.create')}}" class="btn btn-sm btn-success">{{ __('Add New User') }}</a>
+                <a href="{{route('users.trash')}}" class="btn btn-sm btn-warning">{{ __('user.user_deleted') }}</a>
+                <a href="{{route('users.create')}}" class="btn btn-sm btn-success">{{ __('user.add') }}</a>
             </div>
         </div>
         <div class="card-body">
@@ -40,10 +37,10 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-light">
                         <tr>
-                            <th>{{__('NIP')}}</th>
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('Role')}}</th>
-                            <th>{{__('Action')}}</th>
+                            <th>{{__('user.nip')}}</th>
+                            <th>{{__('user.name')}}</th>
+                            <th>{{__('user.role')}}</th>
+                            <th>{{__('user.action')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,16 +50,16 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->role->role }}</td>
                             <td>
-                                <a href="{{route('users.edit',$user->id)}}" class="badge badge-warning">{{__('edit')}}</a>
+                                <a href="{{route('users.edit',$user->id)}}" class="badge badge-warning">{{__('user.edit')}}</a>
                                 @if($user->id != Auth::user()->id)
-                                    <a href="{{ route('softdelete',$user->id) }}" class="badge badge-danger d-inline-block" onclick="return confirm('Are you sure want to DELETE this user ?');">
-                                        {{ __('delete') }}
+                                    <a href="{{ route('users.delete',$user->id) }}" class="badge badge-danger d-inline-block" onclick="return confirm(&quot;{{__('user.delete_confirm')}}&quot;);">
+                                        {{ __('user.delete') }}
                                     </a>
-                                <form class="d-inline-block" action="{{ route('reset-password-user',$user->id) }}" method="POST">
+                                <form class="d-inline-block" action="{{ route('users.password_reset',$user->id) }}" method="POST">
                                     @method('patch')
                                     @csrf
-                                    <button type="submit" class="badge badge-dark " onclick="return confirm('Are you sure want to RESET PASSWORD this user ?');">
-                                        {{ __('password reset') }}
+                                    <button type="submit" class="badge badge-dark " onclick="return confirm(&quot;{{__('user.password_reset_confirm')}}&quot;);">
+                                        {{ __('user.password_reset') }}
                                     </button>
                                 </form>
                                 @endif
@@ -74,6 +71,5 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /.container-fluid -->
+    
 @endsection

@@ -14,7 +14,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $title = 'Menu Management';
+        $title = 'Menu';
         $user_menu = UserMenu::where('id', '!=', 1)->orderBy('id', 'asc')->get();
         return view('menu.index', compact('title', 'user_menu'));
     }

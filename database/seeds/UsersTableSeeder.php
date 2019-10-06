@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,7 +15,7 @@ class UsersTableSeeder extends Seeder
             'role_id' => 1,
             'nip' => '199905082017051001',
             'name' => 'Maulana Kevin Pradana',
-            'image' => '1569540948_kevin(1).jpg',
+            'image' => 'kevin.jpg',
             'password' => Hash::make('123123'),
             'reset_password' => Hash::make('rahasia')
         ]);

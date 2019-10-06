@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $title = 'Users Management';
+        $title = 'Users';
         $users = User::all();
         return view('user.index', compact('title', 'users'));
     }
@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $title = 'Users Management';
+        $title = 'Users';
         $subtitle = 'Add New User';
         $users = User::all();
         $user_role = UserRole::all();
@@ -78,7 +78,7 @@ class UserController extends Controller
      */
     public function show()
     {
-        $title = 'My Profile';
+        $title = auth()->user()->name;
         return view('user.show', compact('title'));
     }
 
@@ -90,7 +90,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Users Management';
+        $title = 'Users';
         $subtitle = 'Edit User';
         $user = User::find($id);
         $user_role = UserRole::all();
@@ -151,9 +151,9 @@ class UserController extends Controller
 
         if ($delete) {
             $user->forceDelete();
-            return redirect('/users')->with('success', 'User has been deleted');
+            return redirect('/users/trash')->with('success', 'User has been deleted');
         } else {
-            return redirect('/users')->with('failed', 'User has not been deleted');
+            return redirect('/users/trash')->with('failed', 'User has not been deleted');
         }
     }
 
@@ -166,7 +166,7 @@ class UserController extends Controller
 
     public function trash()
     {
-        $title = 'Users Management';
+        $title = 'Users';
         $subtitle = 'Users Trash';
         $users = User::onlyTrashed()->get();
         return view('user.trash', compact('title', 'subtitle', 'users'));
@@ -197,7 +197,7 @@ class UserController extends Controller
 
     public function editProfile()
     {
-        $title = 'Edit Profile';
+        $title = auth()->user()->name;
         return view('user.edit-profile', compact('title'));
     }
 
@@ -233,7 +233,7 @@ class UserController extends Controller
 
     public function changePassword()
     {
-        $title = 'Change Password';
+        $title = auth()->user()->name;
         return view('user.change-password', compact('title'));
     }
 

@@ -1,15 +1,11 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('title')
-{{ $title }} - {{ config('app.name') }}
+{{ __('role.role_management') }} - {{ config('app.name') }}
 @endsection
-@section('container')
-<!-- Begin Page Content -->
-<div class="container-fluid">
+@section('content')
 
-    <!-- Page Heading -->
-
-    <div class="row">
-        <div class="col-lg-6">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -24,25 +20,23 @@
                     {{ session('success') }}
                 </div>
             @endif
-
             @if (session('failed'))
                 <div class="alert alert-danger">
                     {{ session('failed') }}
                 </div>
             @endif
-
             <div class="card shadow h-100">
                 <div class="card-header">
-                    <h5 class="m-0 pt-1 font-weight-bold text-success float-left">{{ $title }}</h5>
-                    <a href="" class="btn btn-sm btn-success addRole float-right" data-toggle="modal" data-target="#newRoleModal">{{ __('Add New Role') }}</a>
+                    <h5 class="m-0 pt-1 font-weight-bold float-left">{{ __('role.role_management') }}</h5>
+                    <a href="" class="btn btn-sm btn-success addRole float-right" data-toggle="modal" data-target="#newRoleModal">{{ __('role.add') }}</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">{{ __('#') }}</th>
-                                <th scope="col">{{ __('Role') }}</th>
-                                <th scope="col">{{ __('Action') }}</th>
+                                <th scope="col">{{ __('role.number') }}</th>
+                                <th scope="col">{{ __('role.role') }}</th>
+                                <th scope="col">{{ __('role.action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,13 +46,13 @@
                                     <td>{{ $role->role }}</td>
                                     <td>
                                         <a href="{{ route('role.edit', $role->id)  }}"><span class="badge badge-warning">{{ __('access') }}</span></a>
-                                        <a class="editRole" href="" data-toggle="modal" data-target="#newRoleModal" data-id="{{ $role->id }}"><span class="badge badge-success">{{ __('edit') }}</span></a>
+                                        <a class="editRole" href="" data-toggle="modal" data-target="#newRoleModal" data-id="{{ $role->id }}"><span class="badge badge-success">{{ __('role.edit') }}</span></a>
                                         @if($role->id != 1)
                                             <form class="d-inline-block" action="{{ route('role.destroy',$role->id) }}" method="POST">
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="badge badge-danger " onclick="return confirm('Are you sure want to DELETE this role ?');">
-                                                    {{ __('delete') }}
+                                                    {{ __('role.delete') }}
                                                 </button>
                                             </form>
                                         @endif
@@ -69,19 +63,15 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
-
-</div>
-<!-- /.container-fluid -->
 
 <!-- Modal -->
 <div class="modal fade" id="newRoleModal" tabindex="-1" role="dialog" aria-labelledby="newRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newRoleModalLabel">{{ __('Add New Role') }}</h5>
+                <h5 class="modal-title" id="newRoleModalLabel">{{ __('role.add') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -96,13 +86,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="Submit" class="btn btn-success" id="submitRole">{{ __('Add') }}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('role.close') }}</button>
+                    <button type="Submit" class="btn btn-success" id="submitRole">{{ __('role.add') }}</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-
 @endsection

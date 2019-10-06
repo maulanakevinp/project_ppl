@@ -1,60 +1,38 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('title')
 {{ $title }} - {{ config('app.name') }}
 @endsection
-@section('container')
+@section('content')
 
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
-    
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
-
     @if (session('failed'))
         <div class="alert alert-danger">
             {{ session('failed') }}
         </div>
     @endif
-</div>
-
-    <div class="card mb-3 col-lg-8 p-0">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="{{ asset('img/profile/' . Auth::user()->image) }}" class="card-img" alt="{{ Auth::user()->image }}">
-            </div>
-            <div class="col-md-8">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow h-100">
+                <div class="card-header">
+                    <h5 class="m-0 pt-1 font-weight-bold float-left">{{ $title }}</h5>
+                    <a href="{{route('edit_profile')}}" class="btn btn-success btn-sm float-right">{{__('user.edit_profile')}} </a>
+                </div>
                 <div class="card-body">
-                    <div class="row mb-3">
-                        <label class="col-sm-3 mb-1" for="">{{__('Full Name :')}}</label>
-                        <div class="col-sm-9">
-                            <h5 class="card-title">{{  Auth::user()->name }}</h5>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-3 mb-1" for="">{{__('NIP :')}}</label>
-                        <div class="col-sm-9">
-                            <p class="card-text">{{ Auth::user()->nip }}</p>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-3 mb-1" for="">{{__('Position : ')}}</label>
-                        <div class="col-sm-9">
-                            <p class="card-text">{{ Auth::user()->role->role }}</p>
-                        </div>
-                    </div>
+                    <img src="{{ asset('img/profile/' . Auth::user()->image) }}" class="card-img mb-3" alt="{{ Auth::user()->image }}">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr><td>{{ __('user.nip') }}</td><td>{{ ': '.Auth::user()->nip }}</td></tr>
+                            <tr><td>{{ __('user.name') }}</td><td>{{ ': '.Auth::user()->name }}</td></tr>
+                            <tr><td>{{ __('user.role') }}</td><td>{{ ': '.Auth::user()->role->role }}</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
-<!-- /.container-fluid -->
 
 @endsection

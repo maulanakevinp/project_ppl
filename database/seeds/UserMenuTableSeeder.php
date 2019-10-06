@@ -12,7 +12,7 @@ class UserMenuTableSeeder extends Seeder
     public function run()
     {
         DB::table('user_menu')->insert([
-            'menu' => 'Admin',
+            'menu' => 'Users',
         ]);
 
         DB::table('user_menu')->insert([
@@ -20,11 +20,7 @@ class UserMenuTableSeeder extends Seeder
         ]);
 
         DB::table('user_menu')->insert([
-            'menu' => 'Employee',
-        ]);
-
-        DB::table('user_menu')->insert([
-            'menu' => 'Profil',
+            'menu' => 'Forests',
         ]);
 
         DB::table('user_menu')->insert([
