@@ -3,6 +3,7 @@
 return [
     // Labels
     'forest'                => 'Forest',
+    'forest_management'     => 'Forest Management',
     'list'                  => 'Forest List',
     'search'                => 'Search Forest',
     'search_text'           => 'Name ...',

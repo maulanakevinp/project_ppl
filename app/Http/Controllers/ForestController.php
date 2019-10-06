@@ -49,10 +49,10 @@ class ForestController extends Controller
         $newForest = $request->validate([
             'nik'               => 'required|size:16',
             'name'              => 'required|max:60',
-            'owner_address'     => 'nullable|max:255',
-            'address'           => 'nullable|max:255',
-            'latitude'          => 'nullable|required_with:longitude|max:15',
-            'longitude'         => 'nullable|required_with:latitude|max:15',
+            'owner_address'     => 'required|max:255',
+            'address'           => 'required|max:255',
+            'latitude'          => 'required|required_with:longitude|max:15',
+            'longitude'         => 'required|required_with:latitude|max:15',
         ]);
         $newForest['creator_id'] = auth()->id();
 
@@ -100,10 +100,10 @@ class ForestController extends Controller
         $forestData = $request->validate([
             'nik'               => 'required|size:16',
             'name'              => 'required|max:60',
-            'owner_address'     => 'nullable|max:255',
-            'address'           => 'nullable|max:255',
-            'latitude'          => 'nullable|required_with:longitude|max:15',
-            'longitude'         => 'nullable|required_with:latitude|max:15',
+            'owner_address'     => 'required|max:255',
+            'address'           => 'required|max:255',
+            'latitude'          => 'required|required_with:longitude|max:15',
+            'longitude'         => 'required|required_with:latitude|max:15',
         ]);
         $forest->update($forestData);
 

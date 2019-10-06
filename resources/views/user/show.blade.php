@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-{{ $title }} - {{ config('app.name') }}
+{{ __('user.my_profile') }} - {{ config('app.name') }}
 @endsection
 @section('content')
 
@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <div class="card shadow h-100">
                 <div class="card-header">
-                    <h5 class="m-0 pt-1 font-weight-bold float-left">{{ $title }}</h5>
+                    <h5 class="m-0 pt-1 font-weight-bold float-left">{{ __('user.my_profile') }}</h5>
                     <a href="{{route('edit_profile')}}" class="btn btn-success btn-sm float-right">{{__('user.edit_profile')}} </a>
                 </div>
                 <div class="card-body">

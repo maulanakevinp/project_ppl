@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+    {{ config('app.name')}}
+@endsection
 @section('content')
 <div class="card">
     <div class="card-body" id="mapid"></div>
