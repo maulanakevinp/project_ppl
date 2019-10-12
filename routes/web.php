@@ -28,20 +28,17 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::group(['roles' => 'Staff IT'], function () {
         Route::resource('/users', 'UserController')->except(['show']);
         Route::patch('/users/password-reset/{id}', 'UserController@resetPassword')->name('users.password_reset');
-        Route::get('/users/softdelete/{id}', 'UserController@softdelete')->name('users.delete');
+        Route::delete('/users/softdelete/{id}', 'UserController@softdelete')->name('users.delete');
         Route::get('/users/trash', 'UserController@trash')->name('users.trash');
         Route::get('/users/restore/{id}', 'UserController@restore')->name('users.restore');
         Route::get('/users/restore', 'UserController@restoreAll')->name('users.restore_all');
 
         Route::resource('/role', 'RoleController')->except(['create', 'show']);
-        Route::post('/getRole/{id}', 'RoleController@getRole');
         Route::post('/change-access', 'RoleController@changeAccess');
 
         Route::resource('/menu', 'MenuController')->except(['create', 'show', 'edit']);
-        Route::post('/getMenu', 'MenuController@getMenu');
 
         Route::resource('/submenu', 'SubmenuController')->except(['create', 'show', 'edit']);;
-        Route::post('/getSubmenu', 'SubmenuController@getSubmenu');
     });
 
     Route::group(['roles' => 'Kepala Dinas'], function () {

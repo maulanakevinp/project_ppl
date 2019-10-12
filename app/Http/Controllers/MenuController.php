@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\UserMenu;
+use Alert;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -32,7 +33,9 @@ class MenuController extends Controller
         ]);
 
         UserMenu::create($request->all());
-        return redirect('/menu')->with('success', 'Menu has been created');
+
+        Alert::success('Menu has been created', 'success');
+        return redirect('/menu');
     }
 
     /**
@@ -52,7 +55,8 @@ class MenuController extends Controller
             'menu' => $request->menu
         ]);
 
-        return redirect('/menu')->with('success', 'Menu has been updated');
+        Alert::success('Menu has been updated', 'success');
+        return redirect('/menu');
     }
 
     /**
@@ -64,7 +68,9 @@ class MenuController extends Controller
     public function destroy($id)
     {
         UserMenu::destroy($id);
-        return redirect('/menu')->with('success', 'Menu has been deleted');
+
+        Alert::success('Menu has been deleted', 'success');
+        return redirect('/menu');
     }
 
     public function getMenu(Request $request)

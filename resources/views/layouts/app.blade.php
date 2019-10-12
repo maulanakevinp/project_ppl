@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('fonts/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/simple-line-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/fontawesome5-overrides.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -117,7 +118,6 @@
             @yield('content')
         </main>
     </div>
-
     <!-- provide the csrf token -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -127,6 +127,8 @@
 
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    @include('sweet::alert')
 
     <!-- Page level plugins -->
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
@@ -167,99 +169,6 @@
                         document.location.href = "{{ url('role') }}/" + roleId +"/edit";
                     }
                 });
-            });
-            $('.editRole').on('click', function() {
-                const id = $(this).data('id');
-                const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $('#newRoleModalLabel').html('Edit Role');
-                $('#submitRole').html('Edit');
-                $('#postRole').attr('action', "{{ url('role') }}/" + id);
-                $('#method-role').val('patch');
-                $.ajax({
-                    url: "{{ url('getRole') }}/" + id,
-                    method: 'post',
-                    dataType: 'json',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        id: id
-                    },
-                    success: function(data) {
-                        $('#role').val(data.role);
-                    }
-                });
-            });
-            $('.addRole').on('click', function() {
-                $('#newRoleModalLabel').html('Add New Role');
-                $('#submitRole').html('Add');
-                $('#postRole').attr('action', "{{ route('role.store') }}");
-                $('#method-role').val('post');
-                $('#role').val('');
-            });
-            $('.editMenu').on('click', function() {
-                const id = $(this).data('id');
-                const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $('#newMenuModalLabel').html('Edit Menu');
-                $('#submitMenu').html('Edit');
-                $('#postMenu').attr('action', "{{ url('menu') }}/" + id);
-                $('#method-menu').val('patch');
-                $.ajax({
-                    url: "{{ url('/getMenu') }}",
-                    method: 'post',
-                    dataType: 'json',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        id: id
-                    },
-                    success: function(data) {
-                        $('#menu').val(data.menu);
-                    }
-                });
-            });
-            $('.addMenu').on('click', function() {
-                $('#newMenuModalLabel').html('Add New Menu');
-                $('#submitMenu').html('Add');
-                $('#postMenu').attr('action', "{{ route('menu.store') }}");
-                $('#method-menu').val('post');
-                $('#menu').val('');
-            });
-            $('.editSubMenu').on('click', function() {
-                const id = $(this).data('id');
-                const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $('#newSubMenuModalLabel').html('Edit Submenu');
-                $('#submitSubMenu').html('Edit');
-                $('#postSubMenu').attr('action', "{{ url('submenu') }}/" + id);
-                $('#method-submenu').val('patch');
-                $.ajax({
-                    url: "{{ url('/getSubmenu') }}",
-                    method: 'post',
-                    dataType: 'json',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        id: id
-                    },
-                    success: function(data) {
-                        $('#title').val(data.title);
-                        $('#menu_id').val(data.menu_id);
-                        $('#url').val(data.url);
-                        $('#icon').val(data.icon);
-                        if (data.is_active == 1) {
-                            $('#is_active').attr('checked', true);
-                        } else {
-                            $('#is_active').attr('checked', false);
-                        }
-                    }
-                });
-            });
-            $('.addSubMenu').on('click', function() {
-                $('#newSubMenuModalLabel').html('Add New Submenu');
-                $('#submitSubMenu').html('Add');
-                $('#postSubMenu').attr('action', "{{ route('submenu.store') }}");
-                $('#title').val('');
-                $('#menu_id').val('');
-                $('#url').val('');
-                $('#icon').val('');
-                $('#is_active').attr('checked', false);
-                $('#method-submenu').val('post');
             });
         });
     </script>

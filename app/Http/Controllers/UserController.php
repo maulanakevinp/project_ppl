@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\UserRole;
 use File;
+use Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -64,9 +65,12 @@ class UserController extends Controller
                 'password' => Hash::make('rahasia'),
                 'reset_password' => Hash::make('rahasia')
             ]);
-            return redirect('/users')->with('success', 'User has been added');
+
+            Alert::success('User has been added', 'success');
+            return redirect('/users');
         } else {
-            return redirect('/users')->with('failed', 'User has not been added');
+            Alert::error('User has not been added', 'failed')->persistent("Close this");
+            return redirect('/users');
         }
     }
 
@@ -123,7 +127,8 @@ class UserController extends Controller
                 }
                 $user->image = $file_name;
             } else {
-                return redirect('/users' . '/' . $id . '/edit')->with('failed', 'Photo cannot moved');
+                Alert::error('Photo cannot moved', 'failed')->persistent("Close this");
+                return redirect('/users' . '/' . $id . '/edit');
             }
         }
 
@@ -134,7 +139,8 @@ class UserController extends Controller
             'nip' => $request->nip
         ]);
 
-        return redirect('/users')->with('success', 'User has been updated');
+        Alert::success('User has been updated', 'success');
+        return redirect('/users' . '/' . $id . '/edit');
     }
 
     /**
@@ -151,9 +157,11 @@ class UserController extends Controller
 
         if ($delete) {
             $user->forceDelete();
-            return redirect('/users/trash')->with('success', 'User has been deleted');
+            Alert::success('User has been deleted', 'success');
+            return redirect('/users/trash');
         } else {
-            return redirect('/users/trash')->with('failed', 'User has not been deleted');
+            Alert::success('User has not been deleted', 'success');
+            return redirect('/users/trash');
         }
     }
 
@@ -161,7 +169,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect('/users')->with('success', 'User has been deleted');
+        Alert::success('User has been deleted', 'success');
+        return redirect('/users');
     }
 
     public function trash()
@@ -176,14 +185,16 @@ class UserController extends Controller
     {
         $user = User::onlyTrashed()->where('id', $id);
         $user->restore();
-        return redirect('/users')->with('success', 'User has been restored');
+        Alert::success('User has been restored', 'success');
+        return redirect('/users');
     }
 
     public function restoreAll()
     {
         $user = User::onlyTrashed();
         $user->restore();
-        return redirect('/users')->with('success', 'User has been restored');
+        Alert::success('User has been restored all', 'success');
+        return redirect('/users');
     }
 
     public function resetPassword(Request $request, $id)
@@ -192,7 +203,8 @@ class UserController extends Controller
         User::where('id', $id)->update([
             'password' => $user->reset_password
         ]);
-        return redirect('/users')->with('success', 'Password has been reset');
+        Alert::success('Password has been reset', 'success');
+        return redirect('/users');
     }
 
     public function editProfile()
@@ -220,7 +232,8 @@ class UserController extends Controller
                 }
                 $user->image = $file_name;
             } else {
-                return redirect('/my-profile')->with('failed', 'Photo cannot moved');
+                Alert::error('Photo cannot moved', 'failed')->persistent("Close this");
+                return redirect('/my-profile');
             }
         }
 
@@ -228,7 +241,8 @@ class UserController extends Controller
             'name' => $request->name,
             'image' => $user->image,
         ]);
-        return redirect('/my-profile')->with('success', 'Profile has been updated');
+        Alert::success('Profile has been updated', 'success');
+        return redirect('/my-profile');
     }
 
     public function changePassword()
@@ -247,19 +261,23 @@ class UserController extends Controller
         $user = User::find($id);
         if (Hash::check($request->current_password, $user->password)) {
             if ($request->current_password == $request->confirm_password) {
-                return redirect('/my-profile')->with('failed', 'Password has not been updated, nothing changed in password');
+                Alert::error('Password has not been updated, nothing changed in password', 'failed')->persistent("Close this");
+                return redirect('/change-password');
             } else {
                 if ($request->new_password == $request->confirm_password) {
                     User::where('id', $id)->update([
                         'password' => Hash::make($request->confirm_password)
                     ]);
-                    return redirect('/my-profile')->with('success', 'Password has been updated');
+                    Alert::success('Password has been updated', 'success');
+                    return redirect('/change-password');
                 } else {
-                    return redirect('/my-profile')->with('failed', 'Password not match, Password has not been updated');
+                    Alert::error('Password not match, Password has not been updated', 'failed')->persistent("Close this");
+                    return redirect('/change-password');
                 }
             }
         } else {
-            return redirect('/my-profile')->with('failed', 'Password not match with old password, Password has not been updated');
+            Alert::error('Password not match with old password, Password has not been updated', 'failed')->persistent("Close this");
+            return redirect('/change-password');
         }
     }
 }

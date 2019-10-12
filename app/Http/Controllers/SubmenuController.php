@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\UserMenu;
 use App\UserSubmenu;
+use Alert;
 use Illuminate\Http\Request;
 
 class SubmenuController extends Controller
@@ -31,7 +32,7 @@ class SubmenuController extends Controller
     {
 
         $request->validate([
-            'menu_id' => 'required|numeric',
+            'menu' => 'required|numeric',
             'title' => 'required',
             'url' => 'required',
             'icon' => 'required',
@@ -42,13 +43,15 @@ class SubmenuController extends Controller
         }
 
         UserSubmenu::create([
-            'menu_id' => $request->menu_id,
+            'menu_id' => $request->menu,
             'title' => $request->title,
             'url' => $request->url,
             'icon' => $request->icon,
             'is_active' => $is_active
         ]);
-        return redirect('/submenu')->with('success', 'Submenu has been created');
+
+        Alert::success('Submenu has been created', 'success');
+        return redirect('/submenu');
     }
 
     /**
@@ -61,7 +64,7 @@ class SubmenuController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'menu_id' => 'required|numeric',
+            'menu' => 'required|numeric',
             'title' => 'required',
             'url' => 'required',
             'icon' => 'required',
@@ -73,14 +76,15 @@ class SubmenuController extends Controller
         }
 
         UserSubmenu::where('id', $id)->update([
-            'menu_id' => $request->menu_id,
+            'menu_id' => $request->menu,
             'title' => $request->title,
             'url' => $request->url,
             'icon' => $request->icon,
             'is_active' => $is_active
         ]);
 
-        return redirect('/submenu')->with('success', 'Submenu has been updated');
+        Alert::success('Submenu has been updated', 'success');
+        return redirect('/submenu');
     }
 
     /**
@@ -92,12 +96,8 @@ class SubmenuController extends Controller
     public function destroy($id)
     {
         UserMenu::destroy($id);
-        return redirect('/submenu')->with('success', 'Submenu has been deleted');
-    }
 
-    public function getSubmenu(Request $request)
-    {
-        $submenu = UserSubmenu::find($request->id);
-        echo json_encode($submenu);
+        Alert::success('Submenu has been deleted', 'success');
+        return redirect('/submenu');
     }
 }

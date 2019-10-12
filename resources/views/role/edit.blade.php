@@ -12,11 +12,6 @@
     </nav>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    {{ $message }}
-                </div>
-            @endif
             <div class="card shadow h-100">
                 <div class="card-header">
                     <h5 id="judul" class="m-0 pt-1 font-weight-bold">
@@ -24,28 +19,30 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">{{ __('#') }}</th>
-                                <th scope="col">{{ _('Menu') }}</th>
-                                <th scope="col">{{ __('Access') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($menu as $m)
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="thead-light">
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $m->menu }}</td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input accessMenu" type="checkbox" {{ \App\UserAccessMenu::checkAccess($role->id, $m->id) }} data-role="{{ $role->id }}" data-menu="{{ $m->id }}">
-                                        </div>
-                                    </td>
+                                    <th scope="col">{{ __('#') }}</th>
+                                    <th scope="col">{{ _('Menu') }}</th>
+                                    <th scope="col">{{ __('Access') }}</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($menu as $m)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $m->menu }}</td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input accessMenu" type="checkbox" {{ \App\UserAccessMenu::checkAccess($role->id, $m->id) }} data-role="{{ $role->id }}" data-menu="{{ $m->id }}">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

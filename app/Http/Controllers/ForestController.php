@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Forest;
+use Alert;
 use Illuminate\Http\Request;
 
 class ForestController extends Controller
@@ -58,6 +59,7 @@ class ForestController extends Controller
 
         $forest = Forest::create($newForest);
 
+        Alert::success('Forest has been added', 'success');
         return redirect()->route('forests.show', $forest);
     }
 
@@ -107,6 +109,7 @@ class ForestController extends Controller
         ]);
         $forest->update($forestData);
 
+        Alert::success('Forest has been updated', 'success');
         return redirect()->route('forests.show', $forest);
     }
 
@@ -124,6 +127,7 @@ class ForestController extends Controller
         $request->validate(['forest_id' => 'required']);
 
         if ($request->get('forest_id') == $forest->id && $forest->delete()) {
+            Alert::success('Forest has been deleted', 'success');
             return redirect()->route('forests.index');
         }
 

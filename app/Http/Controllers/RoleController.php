@@ -7,6 +7,7 @@ use App\UserMenu;
 use App\UserRole;
 use Session;
 use Illuminate\Http\Request;
+use Alert;
 
 class RoleController extends Controller
 {
@@ -36,7 +37,8 @@ class RoleController extends Controller
 
         UserRole::create($request->all());
 
-        return redirect('/role')->with('success', 'Role has been created');
+        Alert::success('Role has been created', 'success');
+        return redirect('/role');
     }
 
     /**
@@ -56,12 +58,6 @@ class RoleController extends Controller
         return view('role.edit', compact('menu', 'subtitle', 'title', 'role'));
     }
 
-    public function getRole($id)
-    {
-        $role = UserRole::find($id);
-        echo json_encode($role);
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -79,7 +75,8 @@ class RoleController extends Controller
             'role' => $request->role
         ]);
 
-        return redirect('/role')->with('success', 'Role has been updated');
+        Alert::success('Role has been updated', 'success');
+        return redirect('/role');
     }
 
     /**
@@ -91,7 +88,9 @@ class RoleController extends Controller
     public function destroy($id)
     {
         UserRole::destroy($id);
-        return redirect('/role')->with('success', 'Role has been deleted');
+
+        Alert::success('Role has been deleted', 'success');
+        return redirect('/role');
     }
 
     public function changeAccess(Request $request)
@@ -107,6 +106,6 @@ class RoleController extends Controller
                 ->where('menu_id', $request->menuId)
                 ->delete();
         }
-        Session::flash('success', 'Access has been changed!');
+        Alert::success('Access has been changed!', 'success');
     }
 }

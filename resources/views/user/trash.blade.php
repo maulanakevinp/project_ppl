@@ -10,25 +10,7 @@
             <li class="breadcrumb-item active" aria-current="page">{{ __('user.user_deleted') }}</li>
         </ol>
     </nav>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if (session('failed'))
-    <div class="alert alert-danger">
-        {{ session('failed') }}
-    </div>
-    @endif
+    @if ($errors->any())<div class="alert alert-danger alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 ">
@@ -60,7 +42,7 @@
                                 <form class="d-inline-block" action="{{ route('users.destroy',$user->id) }}" method="POST">
                                     @method('delete')
                                     @csrf
-                                    <button type="submit" class="badge badge-danger " onclick="return confirm(&quot;{{__('user.delete_confirm')}}&quot;);">
+                                    <button type="submit" class="badge badge-danger " onclick="return confirm('{{__('user.delete_confirm',['name' => $user->name])}}'); ">
                                         {{ __('user.delete') }}
                                     </button>
                                 </form>

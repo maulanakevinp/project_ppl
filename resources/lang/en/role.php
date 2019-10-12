@@ -11,7 +11,7 @@ return [
     'add'               => 'Add New Role',
     'edit'              => 'Edit',
     'delete'            => 'Delete',
-    'delete_confirm'    => 'Are you sure want to delete this role???',
+    'delete_confirm'    => 'Are you sure want to delete this ":role" role???',
     'close'             => 'Close',
 
     // Atributtes

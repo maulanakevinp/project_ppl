@@ -10,19 +10,21 @@ return [
     // Actions
     'edit'                      => 'Edit',
     'password_reset'            => 'Password Reset',
-    'password_reset_confirm'    => 'Are you sure want to reset password this user???',
+    'password_reset_confirm'    => 'Are you sure want to reset password this ":name" user???',
     'user_deleted'              => 'User Deleted',
     'add'                       => 'Add New User',
     'delete'                    => 'Delete',
-    'delete_confirm'            => 'Are you sure want to delete this user???',
+    'delete_confirm'            => 'Are you sure want to delete this ":name" user???',
     'action'                    => 'Action',
     'restore'                   => 'Restore',
     'restore_all'               => 'Restore All',
     'choose_role'               => 'Choose Role',
+    'close'                     => 'Close',
 
     // Attributes
     'nip'               => 'NIP',
     'name'              => 'Full Name',
+    'image'             => 'Photo',
     'role'              => 'Position',
     'current_password'  => 'Current Password',
     'new_password'      => 'New Password',

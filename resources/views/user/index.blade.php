@@ -4,25 +4,7 @@
 @endsection
 @section('content')
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if (session('failed'))
-    <div class="alert alert-danger">
-        {{ session('failed') }}
-    </div>
-    @endif
+    @if ($errors->any())<div class="alert alert-danger alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 ">
@@ -45,26 +27,30 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                        <tr>
-                            <td>{{ $user->nip }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->role->role }}</td>
-                            <td>
-                                <a href="{{route('users.edit',$user->id)}}" class="badge badge-warning">{{__('user.edit')}}</a>
-                                @if($user->id != Auth::user()->id)
-                                    <a href="{{ route('users.delete',$user->id) }}" class="badge badge-danger d-inline-block" onclick="return confirm(&quot;{{__('user.delete_confirm')}}&quot;);">
-                                        {{ __('user.delete') }}
-                                    </a>
-                                <form class="d-inline-block" action="{{ route('users.password_reset',$user->id) }}" method="POST">
-                                    @method('patch')
-                                    @csrf
-                                    <button type="submit" class="badge badge-dark " onclick="return confirm(&quot;{{__('user.password_reset_confirm')}}&quot;);">
-                                        {{ __('user.password_reset') }}
-                                    </button>
-                                </form>
-                                @endif
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>{{ $user->nip }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->role->role }}</td>
+                                <td>
+                                    <a href="{{route('users.edit',$user->id)}}" class="badge badge-warning">{{__('user.edit')}}</a>
+                                    @if($user->id != Auth::user()->id)
+                                        <form class="d-inline-block" action="{{ route('users.delete',$user->id) }}" method="POST">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="badge badge-danger " onclick="return confirm('{{__('user.delete_confirm',['name' => $user->name])}}');">
+                                                {{ __('user.delete') }}
+                                            </button>
+                                        </form>
+                                        <form class="d-inline-block" action="{{ route('users.password_reset',$user->id) }}" method="POST">
+                                            @method('patch')
+                                            @csrf
+                                            <button type="submit" class="badge badge-dark " onclick="return confirm('{{__('user.password_reset_confirm',['name' => $user->name])}}');">
+                                                {{ __('user.password_reset') }}
+                                            </button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
