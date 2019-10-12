@@ -23,13 +23,15 @@
                 </div>
                 <div class="card-body">
                     <img src="{{ asset('img/profile/' . Auth::user()->image) }}" class="card-img mb-3" alt="{{ Auth::user()->image }}">
-                    <table class="table table-sm">
-                        <tbody>
-                            <tr><td>{{ __('user.nip') }}</td><td>{{ ': '.Auth::user()->nip }}</td></tr>
-                            <tr><td>{{ __('user.name') }}</td><td>{{ ': '.Auth::user()->name }}</td></tr>
-                            <tr><td>{{ __('user.role') }}</td><td>{{ ': '.Auth::user()->role->role }}</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>{{ __('user.nip') }}</td><td>{{ ': '.Auth::user()->nip }}</td></tr>
+                                <tr><td>{{ __('user.name') }}</td><td>{{ ': '.Auth::user()->name }}</td></tr>
+                                <tr><td>{{ __('user.role') }}</td><td>{{ ': '.Auth::user()->role->role }}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
