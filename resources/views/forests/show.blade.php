@@ -21,8 +21,10 @@
             </div>
             <div class="card-footer">
                 @can('update', $forest)
-                    <a href="{{ route('forests.edit', $forest) }}" id="edit-forest-{{ $forest->id }}" class="btn btn-warning">{{ __('forest.edit') }}</a>
-                    <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
+                    @if ($forest->creator_id == Auth::user()->id)
+                        <a href="{{ route('forests.edit', $forest) }}" id="edit-forest-{{ $forest->id }}" class="btn btn-warning">{{ __('forest.edit') }}</a>
+                        <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
+                    @endif
                 @endcan
                 <a href="{{ route('forest_map.index') }}" class="btn btn-link">{{ __('forest.back_to_our_forest') }}</a>
             </div>

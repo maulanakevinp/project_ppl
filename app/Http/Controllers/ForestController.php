@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Forest;
 use Alert;
+use App\Rules\MustNumeric;
 use Illuminate\Http\Request;
 
 class ForestController extends Controller
@@ -18,10 +19,7 @@ class ForestController extends Controller
         $this->authorize('manage_forest');
 
         $title = 'Forests';
-        $forestQuery = Forest::query();
-        $forestQuery->where('name', 'like', '%' . request('q') . '%');
-        $forests = $forestQuery->paginate(25);
-
+        $forests = Forest::all();
         return view('forests.index', compact('forests', 'title'));
     }
 
@@ -52,19 +50,13 @@ class ForestController extends Controller
             'name'              => 'required|max:60',
             'owner_address'     => 'required|max:255',
             'address'           => 'required|max:255',
-            'latitude'          => 'required|required_with:longitude|max:15',
-            'longitude'         => 'required|required_with:latitude|max:15',
+            'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric],
+            'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric],
         ]);
         $newForest['creator_id'] = auth()->id();
-
-        if (is_numeric($request->latitude) && is_numeric($request->longitude)) {
-            $forest = Forest::create($newForest);
-            Alert::success('Forest has been added', 'success');
-            return redirect()->route('forests.show', $forest);
-        } else {
-            Alert::error('Forest has not been added, latitude and longitude must be numeric', 'failed')->persistent('Close');
-            return redirect()->route('forests.create');
-        }
+        $forest = Forest::create($newForest);
+        Alert::success('Forest has been added', 'success');
+        return redirect()->route('forests.show', $forest);
     }
 
     /**
@@ -87,9 +79,13 @@ class ForestController extends Controller
      */
     public function edit(Forest $forest)
     {
-        $this->authorize('update', $forest);
-        $title = 'Forests';
-        return view('forests.edit', compact('forest', 'title'));
+        if ($forest->creator_id == auth()->user()->id) {
+            $this->authorize('update', $forest);
+            $title = 'Forests';
+            return view('forests.edit', compact('forest', 'title'));
+        } else {
+            return abort(403, 'Access Forbidden');
+        }
     }
 
     /**
@@ -108,18 +104,13 @@ class ForestController extends Controller
             'name'              => 'required|max:60',
             'owner_address'     => 'required|max:255',
             'address'           => 'required|max:255',
-            'latitude'          => 'required|required_with:longitude|max:15',
-            'longitude'         => 'required|required_with:latitude|max:15',
+            'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric],
+            'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric],
         ]);
 
-        if (is_numeric($request->latitude) && is_numeric($request->longitude)) {
-            $forest->update($forestData);
-            Alert::success('Forest has been updated', 'success');
-            return redirect()->route('forests.show', $forest);
-        } else {
-            Alert::error('Forest has not been updated, latitude and longitude must be numeric', 'failed')->persistent('Close');
-            return redirect()->route('forests.edit', $forest->id);
-        }
+        $forest->update($forestData);
+        Alert::success('Forest has been updated', 'success');
+        return redirect()->route('forests.show', $forest);
     }
 
     /**

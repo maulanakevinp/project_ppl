@@ -34,7 +34,6 @@
                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead class="thead-light">
                             <tr>
-                            <tr>
                                 <th class="text-center">{{ __('app.table_no') }}</th>
                                 <th>{{ __('forest.nik') }}</th>
                                 <th>{{ __('forest.name') }}</th>
@@ -46,19 +45,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($forests as $key => $forest)
-                            <tr>
-                                <td class="text-center">{{ $forests->firstItem() + $key }}</td>
-                                <td>{{ $forest->nik }}</td>
-                                <td>{!! $forest->name_link !!}</td>
-                                <td>{{ $forest->owner_address }}</td>
-                                <td>{{ $forest->address }}</td>
-                                <td>{{ $forest->latitude }}</td>
-                                <td>{{ $forest->longitude }}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('forests.show', $forest) }}" id="show-forest-{{ $forest->id }}">{{ __('app.show') }}</a>
-                                </td>
-                            </tr>
+                            @foreach($forests as $forest)
+                                @if ($forest->creator_id == Auth::user()->id)
+                                    <tr>
+                                        <th class="text-center">{{ $loop->iteration }}</th>
+                                        <td>{{ $forest->nik }}</td>
+                                        <td>{{ $forest->name }}</td>
+                                        <td>{{ $forest->owner_address }}</td>
+                                        <td>{{ $forest->address }}</td>
+                                        <td>{{ $forest->latitude }}</td>
+                                        <td>{{ $forest->longitude }}</td>
+                                        <td class="text-center">
+                                            <a class="badge badge-success" href="{{ route('forests.show', $forest) }}" id="show-forest-{{ $forest->id }}">detail</a>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
