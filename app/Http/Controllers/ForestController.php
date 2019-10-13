@@ -57,10 +57,14 @@ class ForestController extends Controller
         ]);
         $newForest['creator_id'] = auth()->id();
 
-        $forest = Forest::create($newForest);
-
-        Alert::success('Forest has been added', 'success');
-        return redirect()->route('forests.show', $forest);
+        if (is_numeric($request->latitude) && is_numeric($request->longitude)) {
+            $forest = Forest::create($newForest);
+            Alert::success('Forest has been added', 'success');
+            return redirect()->route('forests.show', $forest);
+        } else {
+            Alert::error('Forest has not been added, latitude and longitude must be numeric', 'failed')->persistent('Close');
+            return redirect()->route('forests.create');
+        }
     }
 
     /**
@@ -107,10 +111,15 @@ class ForestController extends Controller
             'latitude'          => 'required|required_with:longitude|max:15',
             'longitude'         => 'required|required_with:latitude|max:15',
         ]);
-        $forest->update($forestData);
 
-        Alert::success('Forest has been updated', 'success');
-        return redirect()->route('forests.show', $forest);
+        if (is_numeric($request->latitude) && is_numeric($request->longitude)) {
+            $forest->update($forestData);
+            Alert::success('Forest has been updated', 'success');
+            return redirect()->route('forests.show', $forest);
+        } else {
+            Alert::error('Forest has not been updated, latitude and longitude must be numeric', 'failed')->persistent('Close');
+            return redirect()->route('forests.edit', $forest->id);
+        }
     }
 
     /**
