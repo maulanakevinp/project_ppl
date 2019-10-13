@@ -47,9 +47,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'role' => 'required|numeric',
-            'nip' => 'required|size:18',
-            'name' => 'required',
+            'role'  => 'required|numeric',
+            'nip'   => 'required|digits:18',
+            'name'  => 'required',
             'image' => 'required|image|mimes:jpeg,png,gif|max:2048'
         ]);
 
@@ -112,9 +112,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $request->validate([
-            'role' => 'required',
-            'nip' => 'required|size:18',
-            'name' => 'required',
+            'role'  => 'required',
+            'nip'   => 'required|digits:18',
+            'name'  => 'required',
             'image' => 'image|mimes:jpeg,png,gif|max:2048'
         ]);
 
