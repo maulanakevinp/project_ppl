@@ -26,7 +26,7 @@
                         <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
                     @endif
                 @endcan
-                <a href="{{ route('forest_map.index') }}" class="btn btn-link">{{ __('forest.back_to_our_forest') }}</a>
+                <a href="{{ url('/') }}" class="btn btn-link">{{ __('forest.back_to_our_forest') }}</a>
             </div>
         </div>
     </div>

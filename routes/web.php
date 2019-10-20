@@ -15,6 +15,7 @@ Route::get('/', 'ForestMapController@index');
 
 Route::get('/login', 'AuthController@index')->name('auth.index')->middleware('guest');
 Route::post('/login', 'AuthController@login')->name('login')->middleware('guest');
+Route::get('/forests/{forest}', 'ForestController@show')->name('forests.show');
 
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::post('/logout', 'AuthController@logout')->name('logout');
@@ -50,6 +51,6 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
         * Forests Routes
         */
         Route::get('/community_forests', 'ForestMapController@index')->name('forest_map.index');
-        Route::resource('forests', 'ForestController');
+        Route::resource('forests', 'ForestController')->except(['show']);
     });
 });
