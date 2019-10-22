@@ -1,4 +1,4 @@
-# Laravel Leaflet JS - Example
+# Laravel Leaflet JS - SPOT
 
 This is an example project for [Leaflet JS](https://leafletjs.com) and [OpenStreetMap](https://www.openstreetmap.org) built with Laravel 5.8.
 
