@@ -6,7 +6,7 @@ This is an example project for [Leaflet JS](https://leafletjs.com) and [OpenStre
 
 ## Features
 
-In this project, we have an Outlet Management (CRUD) with localtion/coordinate point that shown in map. We also have coordinate entry with direct map pointing on Outlet Create and Edit form.
+In this project, we have Forest Management (CRUD) with the location / coordinates shown on the map. We also have coordinated entries with direct maps pointing to the Forest Create and Edit forms.
 
 ## Installation Steps
 
