@@ -14,11 +14,11 @@ Follow this instructions to install the project:
 
 1. Clone this repo.
     ```bash
-    $ git clone git@github.com:nafiesl/laravel-leaflet-example.git
+    $ git clone git@github.com:maulanakevinp/project_ppl.git
     # or
-    $ git clone https://github.com/nafiesl/laravel-leaflet-example.git
+    $ git clone https://github.com/maulanakevinp/project_ppl.git
     ```
-2. `$ cd laravel-leaflet-example`
+2. `$ cd project_ppl`
 3. `$ composer install`
 4. `$ cp .env.example .env`
 5. `$ php artisan key:generate`
