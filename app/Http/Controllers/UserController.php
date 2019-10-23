@@ -48,10 +48,15 @@ class UserController extends Controller
     {
         $request->validate([
             'role'  => 'required|numeric',
-            'nip'   => 'required|digits:18',
+            'nip'   => 'required|digits:18|unique:users',
             'name'  => 'required',
             'image' => 'required|image|mimes:jpeg,png,gif|max:2048'
         ]);
+
+        if (User::where('role_id', 2)->first() != null) {
+            Alert::error('Cannot add new Head of Departement', 'failed')->persistent("Close this");
+            return redirect('/users');
+        }
 
         $file = $request->file('image');
         $file_name = time() . "_" . $file->getClientOriginalName();
@@ -269,7 +274,7 @@ class UserController extends Controller
                         'password' => Hash::make($request->confirm_password)
                     ]);
                     Alert::success('Password has been updated', 'success');
-                    return redirect('/change-password');
+                    return redirect('/my-profile');
                 } else {
                     Alert::error('Password not match, Password has not been updated', 'failed')->persistent("Close this");
                     return redirect('/change-password');

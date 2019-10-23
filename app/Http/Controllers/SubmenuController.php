@@ -95,7 +95,7 @@ class SubmenuController extends Controller
      */
     public function destroy($id)
     {
-        UserMenu::destroy($id);
+        UserSubmenu::destroy($id);
 
         Alert::success('Submenu has been deleted', 'success');
         return redirect('/submenu');
