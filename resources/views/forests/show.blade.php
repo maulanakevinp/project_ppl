@@ -27,8 +27,10 @@
                     @endif
                 @endcan
                 <a href="{{ url('/') }}" class="btn btn-link">{{ __('forest.back_to_our_forest') }}</a>
+                @if (Auth::user() != null)
                 @if (Auth::user()->role_id == 2)
                 <a href="{{ url('/dashboard') }}" class="btn btn-link">{{ __('forest.back_to_dashboard') }}</a>                    
+                @endif
                 @endif
             </div>
         </div>
