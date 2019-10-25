@@ -9,17 +9,17 @@
         <div class="col-md-6">
             <div class="card shadow h-100">
                 <div class="card-header">
-                    <h5 class="m-0 pt-1 font-weight-bold float-left">{{ __('user.detail') }}</h5>
-                    <a href="{{url('/dashboard')}}" class="btn btn-success btn-sm float-right">{{__('user.back')}} </a>
+                    <h5 class="m-0 pt-1 font-weight-bold float-left">{{ __('user.my_profile') }}</h5>
+                    <a href="{{route('edit_profile')}}" class="btn btn-success btn-sm float-right">{{__('user.edit_profile')}} </a>
                 </div>
                 <div class="card-body">
-                    <img src="{{ asset('img/profile/' . $user->image) }}" class="card-img mb-3" alt="{{ $user->image }}">
+                    <img src="{{ asset('img/profile/' . Auth::user()->image) }}" class="card-img mb-3" alt="{{ Auth::user()->image }}">
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <tbody>
-                                <tr><td>{{ __('user.nip') }}</td><td>:</td><td>{{ $user->nip }}</td></tr>
-                                <tr><td>{{ __('user.name') }}</td><td>:</td><td>{{ $user->name }}</td></tr>
-                                <tr><td>{{ __('user.role') }}</td><td>:</td><td>{{ $user->role->role }}</td></tr>
+                                <tr><td>{{ __('user.nip') }}</td><td>:</td><td>{{ Auth::user()->nip }}</td></tr>
+                                <tr><td>{{ __('user.name') }}</td><td>:</td><td>{{ Auth::user()->name }}</td></tr>
+                                <tr><td>{{ __('user.role') }}</td><td>:</td><td>{{ Auth::user()->role->role }}</td></tr>
                             </tbody>
                         </table>
                     </div>

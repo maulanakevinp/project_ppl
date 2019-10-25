@@ -32,7 +32,7 @@ class UserSubmenuTableSeeder extends Seeder
             'title' => 'Dashboard',
             'url' => '/dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
-            'is_active' => 0
+            'is_active' => 1
         ]);
 
         DB::table('user_submenu')->insert([

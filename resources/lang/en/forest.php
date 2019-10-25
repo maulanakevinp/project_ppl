@@ -28,6 +28,7 @@ return [
     'deleted'        => 'Forest has been deleted.',
     'undeleted'      => 'Forest not deleted.',
     'undeleteable'   => 'Forest data cannot be deleted.',
+    'back_to_dashboard'         => 'Back To Dashboard',
 
     // Attributes
     'nik'               => 'NIK',
@@ -36,6 +37,7 @@ return [
     'address'           => 'Forest Address',
     'latitude'          => 'Latitude',
     'longitude'         => 'Longitude',
+    'created_at'        => 'Created at',
     'location'          => 'Location',
     'coordinate'        => 'Coordinate',
 ];

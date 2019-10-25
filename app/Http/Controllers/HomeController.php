@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Forest;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $title = 'Head of Departement';
+        $users = User::all();
+        $forests = Forest::all();
+        return view('home', compact('title','users', 'forests'));
     }
 }

@@ -4,6 +4,7 @@ return [
     // Labels 
     'my_profile'        => 'My Profile',
     'edit_profile'      => 'Edit Profile',
+    'detail'            => 'Detail User',
     'change_password'   => 'Change Password',
     'user_management'   => 'User Management',
 
@@ -20,6 +21,8 @@ return [
     'restore_all'               => 'Restore All',
     'choose_role'               => 'Choose Role',
     'close'                     => 'Close',
+    'back'                      => 'Back',
+    'show'                      => 'Detail',
 
     // Attributes
     'nip'               => 'NIP',

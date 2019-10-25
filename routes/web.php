@@ -20,7 +20,7 @@ Route::get('/forests/{forest}', 'ForestController@show')->name('forests.show');
 Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     Route::post('/logout', 'AuthController@logout')->name('logout');
 
-    Route::get('/my-profile', 'UserController@show')->name('my_profile');
+    Route::get('/my-profile', 'UserController@myProfile')->name('my_profile');
     Route::get('/edit-profile', 'UserController@editProfile')->name('edit_profile');
     Route::patch('/update-profile/{id}', 'UserController@updateProfile')->name('update-profile');
     Route::get('/change-password', 'UserController@changePassword')->name('change_password');
@@ -43,7 +43,8 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function () {
     });
 
     Route::group(['roles' => 'Kepala Dinas'], function () {
-        Route::get('/dashboard', 'HomeController@dashboard');
+        Route::get('/dashboard', 'HomeController@index');
+        Route::get('/users/{user}', 'UserController@show')->name('users.show');
     });
 
     Route::group(['roles' => 'Pegawai'], function () {

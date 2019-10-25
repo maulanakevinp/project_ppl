@@ -80,15 +80,28 @@ class UserController extends Controller
     }
 
     /**
+     * Display the specified forest.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $title = 'Detail User';
+        $user = User::findOrFail($id);
+        return view('user.show', compact('user', 'title'));
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function myProfile()
     {
         $title = auth()->user()->name;
-        return view('user.show', compact('title'));
+        return view('user.my-profile', compact('title'));
     }
 
     /**
