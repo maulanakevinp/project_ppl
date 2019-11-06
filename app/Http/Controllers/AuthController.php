@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\LoginRule;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -14,12 +15,9 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'nip' => 'required|size:18',
-            'password' => 'required',
+            'nip'       => ['required','size:18','required_with:password',new LoginRule($request->password)],
+            'password'  => ['required']
         ]);
-        if (!auth()->attempt(['nip' => $request->nip, 'password' => $request->password])) {
-            return redirect('/login')->with('failed', 'NIP or Password is wrong');
-        }
 
         return redirect()->route('my_profile');
     }

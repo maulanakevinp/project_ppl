@@ -108,4 +108,11 @@ class RoleController extends Controller
         }
         Alert::success('Access has been changed!', 'success');
     }
+
+    public function getRole($id)
+    {
+        $role = UserRole::find($id);
+        echo json_encode($role);
+    }
+
 }

@@ -14,10 +14,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/fontawesome-all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/simple-line-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/fontawesome5-overrides.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 
     <!-- Styles -->
@@ -25,11 +21,12 @@
     <link rel="icon" href="{{ asset('img/logo/icon.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
     <link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}">
+    
     @yield('styles')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel fixed-top w-100">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img style="height: 20px" src="{{ asset('img/logo/logo.jpeg') }}" alt="logo">
@@ -115,7 +112,7 @@
             </div>
         </nav>
 
-        <main class="py-4 container">
+        <main class="py-4 container" style="margin-top:50px">
             @yield('content')
         </main>
     </div>
@@ -136,43 +133,5 @@
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     @stack('scripts')
 
-    <script>
-        $(document).ready(function(){
-            $('#dataTable').DataTable();
-            $('#dataTable1').DataTable();
-            $(".custom-file-input").on("change", function() {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                readURL(this);
-            });
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('#image').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-            $('.accessMenu').on('click', function() {
-                const menuId = $(this).data('menu');
-                const roleId = $(this).data('role');
-                const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: "{{ url('/change-access') }}",
-                    type: 'post',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        menuId: menuId,
-                        roleId: roleId
-                    },
-                    success: function() {
-                        document.location.href = "{{ url('role') }}/" + roleId +"/edit";
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>

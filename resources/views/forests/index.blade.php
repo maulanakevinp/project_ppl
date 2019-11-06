@@ -31,37 +31,19 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-hover" id="forestTable" width="100%" cellspacing="0">
                         <thead class="thead-light">
                             <tr>
-                                <th class="text-center">{{ __('app.table_no') }}</th>
                                 <th>{{ __('forest.nik') }}</th>
                                 <th>{{ __('forest.name') }}</th>
                                 <th>{{ __('forest.owner_address') }}</th>
                                 <th>{{ __('forest.address') }}</th>
-                                <th>{{ __('forest.latitude') }}</th>
-                                <th>{{ __('forest.longitude') }}</th>
+                                <th>{{ __('forest.status') }}</th>
+                                <th>{{ __('forest.created_at') }}</th>
                                 <th class="text-center">{{ __('app.action') }}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach($forests as $forest)
-                                @if ($forest->creator_id == Auth::user()->id)
-                                    <tr>
-                                        <th class="text-center">{{ $loop->iteration }}</th>
-                                        <td>{{ $forest->nik }}</td>
-                                        <td>{{ $forest->name }}</td>
-                                        <td>{{ $forest->owner_address }}</td>
-                                        <td>{{ $forest->address }}</td>
-                                        <td>{{ $forest->latitude }}</td>
-                                        <td>{{ $forest->longitude }}</td>
-                                        <td class="text-center">
-                                            <a class="badge badge-success" href="{{ route('forests.show', $forest) }}" id="show-forest-{{ $forest->id }}">detail</a>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
                 {{-- {{ $forests->appends(Request::except('page'))->render() }} --}}
@@ -70,3 +52,22 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+$('#forestTable').DataTable({
+    processing: true,
+    serverside: true,
+    ajax: "{{ route('ajax.get_forest') }}",
+    columns: [
+        { data: 'nik', name: 'nik' },
+        { data: 'name', name: 'name' },
+        { data: 'owner_address', name: 'owner_address' },
+        { data: 'address', name: 'address' },
+        { data: 'status', name: 'status' },
+        { data: 'created_at', name: 'created_at' },
+        { data: 'action', name: 'action' },
+    ],
+});
+</script>
+@endpush

@@ -9,8 +9,8 @@ Dashboard - {{ config('app.name') }}
         <div class="col-xl-6 mb-4 align-self-center">
             <h1>Dashboard</h1>
         </div>
-        <!-- Jumlah Penduduk Card Example -->
-        <div class="col-xl-3 mb-4">
+
+        <div id="buttonShowUser" class="col-xl-3 mb-4" onclick="showUser()">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -26,8 +26,7 @@ Dashboard - {{ config('app.name') }}
             </div>
         </div>
     
-        <!-- Jumlah Penduduk Card Example -->
-        <div class="col-xl-3 mb-4">
+        <div id="buttonShowForest" class="col-xl-3 mb-4" onclick="showForest()">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -45,7 +44,7 @@ Dashboard - {{ config('app.name') }}
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-12 mb-3">
+        <div id="UserList" class="col-md-12 mb-3">
             <div class="card">
                 <div class="card-header">
                     <h5 class="page-title">
@@ -54,7 +53,7 @@ Dashboard - {{ config('app.name') }}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="userTable" width="100%" cellspacing="0">
                             <thead class="thead-light">
                                 <tr>
                                     <th>{{__('user.nip')}}</th>
@@ -63,24 +62,13 @@ Dashboard - {{ config('app.name') }}
                                     <th>{{__('user.action')}}</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($users as $user)
-                                <tr>
-                                    <td>{{ $user->nip }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->role->role }}</td>
-                                    <td>
-                                        <a href="{{route('users.show',$user->id)}}" class="badge badge-success">{{__('user.show')}}</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" id="ForestList">
             <div class="card">
                 <div class="card-header">
                 <h5 class="page-title">
@@ -89,31 +77,19 @@ Dashboard - {{ config('app.name') }}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" id="dataTable1" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="forestTable" width="100%" cellspacing="0">
                             <thead class="thead-light">
                                 <tr>
                                     <th>{{ __('forest.nik') }}</th>
                                     <th>{{ __('forest.name') }}</th>
                                     <th>{{ __('forest.owner_address') }}</th>
                                     <th>{{ __('forest.address') }}</th>
+                                    <th>{{ __('forest.status') }}</th>
                                     <th>{{ __('forest.created_at') }}</th>
                                     <th class="text-center">{{ __('app.action') }}</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach($forests as $forest)
-                                <tr>
-                                    <td>{{ $forest->nik }}</td>
-                                    <td>{{ $forest->name }}</td>
-                                    <td>{{ $forest->owner_address }}</td>
-                                    <td>{{ $forest->address }}</td>
-                                    <td>{{ $forest->created_at->format('d M Y - H:i:s') }}</td>
-                                    <td class="text-center">
-                                        <a class="badge badge-success" href="{{ route('forests.show', $forest) }}" id="show-forest-{{ $forest->id }}">detail</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -122,3 +98,47 @@ Dashboard - {{ config('app.name') }}
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+    $('#UserList').show();
+    $('#ForestList').hide();
+    $('#buttonShowUser').css('cursor','pointer');
+    $('#buttonShowForest').css('cursor','pointer');
+    function showUser() {
+        $('#UserList').show();
+        $('#ForestList').hide();
+    }
+    function showForest() {
+        $('#UserList').hide();
+        $('#ForestList').show();
+    }
+
+    $(document).ready(function(){
+        $('#userTable').DataTable({
+            processing: true,
+            serverside: true,
+            ajax: "{{ route('ajax.get_user') }}",
+            columns: [
+                { data: 'nip', name: 'nip' },
+                { data: 'name', name: 'name' },
+                { data: 'role.role', name: 'role.role' },
+                { data: 'action', name: 'action' },
+            ],
+        });
+        $('#forestTable').DataTable({
+            processing: true,
+            serverside: true,
+            ajax: "{{ route('ajax.get_forest') }}",
+            columns: [
+                { data: 'nik', name: 'nik' },
+                { data: 'name', name: 'name' },
+                { data: 'owner_address', name: 'owner_address' },
+                { data: 'address', name: 'address' },
+                { data: 'status', name: 'status' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'action', name: 'action' },
+            ],
+        });
+    });
+</script>
+@endpush

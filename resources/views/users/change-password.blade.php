@@ -12,7 +12,7 @@
                     <h5 class="m-0 pt-1 font-weight-bold">{{ __('user.change_password') }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action=" {{ route('update-password', [ 'id' => Auth::user()->id ]) }} " method="post">
+                    <form action=" {{ route('update_password', [ 'id' => Auth::user()->id ]) }} " method="post">
                         @method('patch')
                         @csrf
                         <div class="form-group">

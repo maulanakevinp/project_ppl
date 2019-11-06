@@ -43,7 +43,17 @@
         console.log(response.data);
         L.geoJSON(response.data, {
             pointToLayer: function(geoJsonPoint, latlng) {
-                return L.marker(latlng);
+                var greenIcon = L.icon({
+                    iconUrl: "{{asset('img/icon/leaf-green.png')}}",
+                    shadowUrl: "{{asset('img/icon/leaf-shadow.png')}}",
+                    
+                    iconSize: [38, 95], // size of the icon
+                    shadowSize: [50, 64], // size of the shadow
+                    iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+                    shadowAnchor: [4, 62], // the same for the shadow
+                    popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+                });
+                return L.marker(latlng, {icon:greenIcon});
             }
         })
         .bindPopup(function (layer) {
@@ -54,6 +64,7 @@
         console.log(error);
     });
 
+    @if(auth()->user() != null && auth()->user()->role_id == 3)
     @can('create', new App\Forest)
     var theMarker;
 
@@ -67,12 +78,21 @@
 
         var popupContent = "Your location : " + latitude + ", " + longitude + ".";
         popupContent += '<br><a href="{{ route('forests.create') }}?latitude=' + latitude + '&longitude=' + longitude + '">Add new forest here</a>';
-
-        theMarker = L.marker([latitude, longitude]).addTo(map);
-        theMarker.bindPopup(popupContent)
-        .openPopup();
+        var greenIcon = L.icon({
+            iconUrl: "{{asset('img/icon/leaf-green.png')}}",
+            shadowUrl: "{{asset('img/icon/leaf-shadow.png')}}",
+            
+            iconSize: [38, 95], // size of the icon
+            shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62], // the same for the shadow
+            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+        theMarker = L.marker([latitude, longitude],{icon:greenIcon}).addTo(map);
+        theMarker.bindPopup(popupContent).openPopup();
     });
     @endcan
+    @endif
 
     L.control.locate({
         position: "bottomright"

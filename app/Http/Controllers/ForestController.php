@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Forest;
 use Alert;
 use App\Rules\MustNumeric;
+use App\Rules\OwnLat;
+use App\Rules\OwnLong;
+use File;
+use DataTables;
 use Illuminate\Http\Request;
 
 class ForestController extends Controller
@@ -46,13 +50,17 @@ class ForestController extends Controller
         $this->authorize('create', new Forest);
 
         $newForest = $request->validate([
-            'nik'               => 'required|size:16',
+            'nik'               => 'required|digits:16',
             'name'              => 'required|max:60',
             'owner_address'     => 'required|max:255',
             'address'           => 'required|max:255',
-            'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric],
-            'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric],
+            'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric , new OwnLat(auth()->user()->latitude1, auth()->user()->latitude2)],
+            'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric, new OwnLong(auth()->user()->longitude1, auth()->user()->longitude2)],
+            'nik_file'          => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
+            'photo_file'        => ['required', 'image', 'mimes:jpeg,png', 'max:2048']
         ]);
+        $newForest['nik_file'] = $this->setImageUpload($request->file('nik_file'),'img/nik');
+        $newForest['photo_file'] = $this->setImageUpload($request->file('photo_file'),'img/photo');
         $newForest['creator_id'] = auth()->id();
         $forest = Forest::create($newForest);
         Alert::success('Forest has been added', 'success');
@@ -100,13 +108,23 @@ class ForestController extends Controller
         $this->authorize('update', $forest);
 
         $forestData = $request->validate([
-            'nik'               => 'required|size:16',
+            'nik'               => 'required|digits:16',
             'name'              => 'required|max:60',
             'owner_address'     => 'required|max:255',
             'address'           => 'required|max:255',
-            'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric],
-            'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric],
+            'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric, new OwnLat(auth()->user()->latitude1, auth()->user()->latitude2)],
+            'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric, new OwnLong(auth()->user()->longitude1, auth()->user()->longitude2)],
+            'nik_file'          => ['image', 'mimes:jpeg,png', 'max:2048'],
+            'photo_file'        => ['image', 'mimes:jpeg,png', 'max:2048']
         ]);
+
+        if ($request->file('nik_file')) {
+            $forestData['nik_file'] = $this->setImageUpload($request->file('nik_file'), 'img/nik', $forest->nik_file);
+        }
+        
+        if ($request->file('photo_file')) {
+            $forestData['photo_file'] = $this->setImageUpload($request->file('photo_file'), 'img/photo', $forest->photo_file);
+        }
 
         $forest->update($forestData);
         Alert::success('Forest has been updated', 'success');
@@ -120,17 +138,85 @@ class ForestController extends Controller
      * @param  \App\Forest  $forest
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Request $request, Forest $forest)
+    public function destroy(Forest $forest)
     {
         $this->authorize('delete', $forest);
+        File::delete(public_path('img/nik/'.$forest->nik_file));
+        File::delete(public_path('img/photo/'.$forest->photo_file));
+        $forest->delete();
+        Alert::success('Forest has been deleted', 'success');
+        return redirect()->route('forests.index');
+    }
 
-        $request->validate(['forest_id' => 'required']);
-
-        if ($request->get('forest_id') == $forest->id && $forest->delete()) {
-            Alert::success('Forest has been deleted', 'success');
-            return redirect()->route('forests.index');
+    public function setImageUpload($file, $path, $old_file = null)
+    {
+        $file_name = time() . "_" . $file->getClientOriginalName();
+        if ($file->move(public_path($path), $file_name)) {
+            if ($old_file) {
+                File::delete(public_path($path . '/' . $old_file));
+            }
+            return $file_name;
+        } else {
+            Alert::error('Foto gagal diunggah', 'gagal')->persistent('tutup');
+            return back();
         }
+    }
 
+    /**
+     * Approving the specified forest from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Forest  $forest
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function approving(Forest $forest)
+    {
+        $forest->verify = 1;
+        $forest->reason = null;
+        $forest->save();
+        Alert::success('Forest has been approved', 'success');
         return back();
+    }
+
+    /**
+     * Rejecting the specified forest from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Forest  $forest
+     * @return \Illuminate\Routing\Redirector
+     */
+    public function rejecting(Request $request,Forest $forest)
+    {
+        $request->validate([
+            'reason' => 'required'
+        ]);
+        $forest->verify = -1;
+        $forest->reason = $request->reason;
+        $forest->save();
+        Alert::success('Forest has been rejected', 'success');
+        return back();
+    }
+
+    public function getForest()
+    {
+        $forests = Forest::select('forests.*');
+        return DataTables::eloquent($forests)
+            ->addColumn('action',function($forest){
+                return  '<a href="' . route('forests.show', $forest->id) . '" class="btn btn-info btn-sm" data-toggle="tool-tip" title="Detail Forest"><i class="fas fa-eye"></i></a>';
+            })
+            ->addColumn('status',function($forest){
+                if ($forest->verify == 1) {
+                    return 'Approved';
+                } elseif ($forest->verify == -1) {
+                    return 'Rejected';
+                } else {
+                    return 'Not yet approved';
+                }
+            })
+            ->addColumn('created_at',function($forest){
+                return $forest->created_at->format('d M Y - H:i:s');
+            })
+            ->rawColumns(['action', 'status', 'created_at'])
+            ->toJson();
     }
 }

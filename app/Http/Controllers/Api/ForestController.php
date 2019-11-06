@@ -17,7 +17,7 @@ class ForestController extends Controller
      */
     public function index(Request $request)
     {
-        $forests = Forest::all();
+        $forests = Forest::whereVerify(1)->get();
 
         $geoJSONdata = $forests->map(function ($forest) {
             return [

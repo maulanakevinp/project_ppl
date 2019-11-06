@@ -21,6 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('image');
             $table->string('password');
             $table->string('reset_password')->nullable();
+            $table->string('latitude1', 15)->nullable();
+            $table->string('longitude1', 15)->nullable();
+            $table->string('latitude2', 15)->nullable();
+            $table->string('longitude2', 15)->nullable();
             $table->timestamps();
             $table->softDeletes();
 

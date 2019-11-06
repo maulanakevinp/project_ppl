@@ -16,7 +16,11 @@
         <div class="card-header py-3 ">
             <h5 class="m-0 pt-1 font-weight-bold float-left">{{ __('user.user_deleted') }}</h5>
             <div class="btn-group float-right">
-                <a href="{{route('users.restore_all')}}" class="btn btn-sm btn-success">{{ __('user.restore_all') }}</a>
+                <form action="{{ route('users.restore_all') }}" method="post">
+                    @csrf
+                    @method('patch')
+                    <button type="submit" class="btn btn-sm btn-success">{{ __('user.restore_all') }}</button>                
+                </form>
             </div>
         </div>
         <div class="card-body">
@@ -30,30 +34,27 @@
                             <th>{{__('user.action')}}</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                        <tr>
-                            <td>{{ $user->nip }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->role->role }}</td>
-                            <td>
-                                <a href="{{route('users.restore',$user->id)}}" class="badge badge-warning">{{__('user.restore')}}</a>
-                                @if($user->id != Auth::user()->id)
-                                <form class="d-inline-block" action="{{ route('users.destroy',$user->id) }}" method="POST">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="badge badge-danger " onclick="return confirm('{{__('user.delete_confirm',['name' => $user->name])}}'); ">
-                                        {{ __('user.delete') }}
-                                    </button>
-                                </form>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
     </div>
     
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function(){
+    $('#dataTable').DataTable({
+        processing: true,
+        serverside: true,
+        ajax: "{{ route('ajax.get_user_deleted') }}",
+        columns: [
+            { data: 'nip', name: 'nip' },
+            { data: 'name', name: 'name' },
+            { data: 'role.role', name: 'role.role' },
+            { data: 'action', name: 'action' },
+        ],
+    });
+});
+</script>
+@endpush

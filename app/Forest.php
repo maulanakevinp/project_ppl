@@ -13,7 +13,7 @@ class Forest extends Model
      * @var array
      */
     protected $fillable = [
-        'nik', 'name', 'owner_address', 'address', 'latitude', 'longitude', 'creator_id',
+        'nik', 'name', 'owner_address', 'address', 'latitude', 'longitude', 'creator_id','nik_file','photo_file','verify'
     ];
 
     /**
