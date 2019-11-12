@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\UserAccessMenu;
 use App\UserMenu;
 use App\UserRole;
-use Session;
+use File;
 use Illuminate\Http\Request;
 use Alert;
+use App\Forest;
+use App\User;
 
 class RoleController extends Controller
 {
@@ -87,6 +89,18 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $users = User::whereRoleId($id)->get();
+        foreach ($users as $user) {
+            $forests = Forest::whereCreatorId($user->id)->get();
+            if($forests){
+                foreach ($forests as $forest) {
+                    File::delete(public_path('img/nik/'.$forest->nik_file));
+                    File::delete(public_path('img/photo/'.$forest->photo_file));
+                }
+            }
+            File::delete(public_path('img/profile'.'/'.$user->image));
+            $user->forceDelete();
+        }
         UserRole::destroy($id);
 
         Alert::success('Role has been deleted', 'success');
