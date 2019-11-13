@@ -115,6 +115,7 @@
                     $('#menu').val(data.menu_id);
                     $('#url').val(data.url);
                     $('#icon').val(data.icon);
+                    $('#icon-change').attr('class',data.icon);
                     if (data.is_active == 1) {
                         $('#is_active').attr('checked',true);
                     } else {
