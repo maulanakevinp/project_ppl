@@ -72,14 +72,16 @@
                 @can('update', $forest)
                     @if ($forest->creator_id == Auth::user()->id)
                         <a href="{{ route('forests.edit', $forest) }}" id="edit-forest-{{ $forest->id }}" class="btn btn-warning">{{ __('forest.edit') }}</a>
-                        <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
                     @endif
                 @endcan
                 <a href="{{ url('/') }}" class="btn btn-link">{{ __('forest.back_to_our_forest') }}</a>
                 @if (Auth::user() != null)
-                @if (Auth::user()->role_id == 2)
-                <a href="{{ url('/dashboard') }}" class="btn btn-link">{{ __('forest.back_to_dashboard') }}</a>                    
-                @endif
+                    @if (Auth::user()->role_id == 2)
+                        <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
+                        <a href="{{ url('/dashboard') }}" class="btn btn-link">{{ __('forest.back_to_dashboard') }}</a>                    
+                    @elseif(Auth::user()->role_id == 3)
+                        <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
+                    @endif
                 @endif
             </div>
         </div>
