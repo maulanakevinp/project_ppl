@@ -240,7 +240,7 @@ function rotateImage(image,degree) {
     });
 }
 $(document).ready(function () {
-    $("#nik_file").on("change", function () {
+    $("#ktp_scan").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings("#custom-file-label-nik").addClass("selected").html(fileName);
         readURL1(this);

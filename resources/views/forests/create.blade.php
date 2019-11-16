@@ -118,7 +118,7 @@
 <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 <script>
 $(document).ready(function () {
-    $("#nik_file").on("change", function () {
+    $("#ktp_scan").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings("#custom-file-label-nik").addClass("selected").html(fileName);
         readURL1(this);
