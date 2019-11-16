@@ -13,7 +13,7 @@
             <div class="card-body">
                 <table class="table table-sm">
                     <tbody>
-                        <tr><td>{{ __('forest.creator') }}</td><td>{{ $forest->creator->name }}</td></tr>
+                        <tr><td>{{ __('forest.creator') }}</td><td>{!! auth()->user->role_id == 2 ? '<a href="'.route('users.show,'$forest->creator_id).'">'.$forest->creator->name.'</a>' : $forest->creator->name !!}</td></tr>
                         <tr><td>{{ __('forest.nik') }}</td><td>{{ $forest->nik }}</td></tr>
                         <tr><td>{{ __('forest.name') }}</td><td>{{ $forest->name }}</td></tr>
                         <tr><td>{{ __('forest.owner_address') }}</td><td>{{ $forest->owner_address }}</td></tr>

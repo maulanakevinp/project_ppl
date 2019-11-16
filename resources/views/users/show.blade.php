@@ -86,12 +86,10 @@
         popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
     });
     var marker = L.marker([@json($user->latitude1),@json($user->longitude1)],{
-        draggable: true,
         icon: sW
     }).addTo(map).bindPopup('Point of SW : <br> LatLang('+ @json($user->latitude1) +', '+ @json($user->longitude1) +')');
 
     var marker2 = L.marker([@json($user->latitude2),@json($user->longitude2)],{
-        draggable: true,
         icon: nE
     }).addTo(map).bindPopup('Point of NE : <br> LatLang('+ @json($user->latitude2) +', '+ @json($user->longitude2) +')');
 
