@@ -118,7 +118,9 @@
                                         <option value="360">360</option>
                                     </select>
                                 </div>
-                                <img id="nik_image" class="mw-100" src="{{url('img/nik/'.$forest->nik_file) }}" alt="{{ $forest->nik_file }}">
+                                <div class="text-center">
+                                    <img id="nik_image" class="mw-100" src="{{url('img/nik/'.$forest->nik_file) }}" alt="{{ $forest->nik_file }}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -142,7 +144,9 @@
                                         <option value="360">360</option>
                                     </select>
                                 </div>
-                                <img id="photo_image" class="mw-100" src="{{url('img/photo/'.$forest->photo_file) }}" alt="{{ $forest->photo_file }}">
+                                <div class="text-center">
+                                    <img id="photo_image" class="mw-100" src="{{url('img/photo/'.$forest->photo_file) }}" alt="{{ $forest->photo_file }}">
+                                </div>
                             </div>
                         </div>
                     </div>
