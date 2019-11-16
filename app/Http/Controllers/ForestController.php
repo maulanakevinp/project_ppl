@@ -214,7 +214,11 @@ class ForestController extends Controller
                 }
             })
             ->addColumn('creator',function($forest){
-                return $forest->creator->name;
+                if (auth()->user()->role_id == 2) {
+                    return '<a href="'.route('users.show',$forest->creator_id).'">'.$forest->creator->name.'</a>';
+                } else {
+                    return $forest->creator->name;
+                }
             })
             ->addColumn('created_at',function($forest){
                 return $forest->created_at->format('d M Y - H:i:s');
