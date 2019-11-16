@@ -17,15 +17,15 @@ class CreateForestsTable extends Migration
             $table->increments('id');
             $table->char('nik', 16);
             $table->string('name', 60);
-            $table->string('owner_address')->nullable();
-            $table->string('address')->nullable();
+            $table->text('owner_address')->nullable();
+            $table->text('address')->nullable();
             $table->string('latitude', 15)->nullable();
             $table->string('longitude', 15)->nullable();
             $table->unsignedBigInteger('creator_id');
             $table->string('nik_file')->nullable();
             $table->string('photo_file')->nullable();
             $table->tinyInteger('verify')->nullable();
-            $table->string('reason')->nullable();
+            $table->text('reason')->nullable();
             $table->timestamps();
 
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
