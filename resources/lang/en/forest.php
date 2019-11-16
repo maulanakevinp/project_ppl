@@ -38,6 +38,7 @@ return [
     'latitude'          => 'Latitude',
     'longitude'         => 'Longitude',
     'created_at'        => 'Created at',
+    'creator'           => 'Creator',
     'location'          => 'Location',
     'coordinate'        => 'Coordinate',
     'file'              => 'File',

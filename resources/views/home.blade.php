@@ -85,6 +85,7 @@ Dashboard - {{ config('app.name') }}
                                     <th>{{ __('forest.owner_address') }}</th>
                                     <th>{{ __('forest.address') }}</th>
                                     <th>{{ __('forest.status') }}</th>
+                                    <th>{{ __('forest.creator') }}</th>
                                     <th>{{ __('forest.created_at') }}</th>
                                     <th class="text-center">{{ __('app.action') }}</th>
                                 </tr>
@@ -135,6 +136,7 @@ Dashboard - {{ config('app.name') }}
                 { data: 'owner_address', name: 'owner_address' },
                 { data: 'address', name: 'address' },
                 { data: 'status', name: 'status' },
+                { data: 'creator', name: 'creator' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'action', name: 'action' },
             ],

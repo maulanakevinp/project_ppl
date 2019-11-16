@@ -213,10 +213,13 @@ class ForestController extends Controller
                     return 'Not yet approved';
                 }
             })
+            ->addColumn('creator',function($forest){
+                return $forest->creator->name;
+            })
             ->addColumn('created_at',function($forest){
                 return $forest->created_at->format('d M Y - H:i:s');
             })
-            ->rawColumns(['action', 'status', 'created_at'])
+            ->rawColumns(['creator','action', 'status', 'created_at'])
             ->toJson();
     }
 }
