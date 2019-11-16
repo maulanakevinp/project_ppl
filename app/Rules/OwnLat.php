@@ -41,6 +41,6 @@ class OwnLat implements Rule
      */
     public function message()
     {
-        return 'This is not your area.';
+        return 'The latitude must into your area.';
     }
 }

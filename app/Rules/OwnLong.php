@@ -41,6 +41,6 @@ class OwnLong implements Rule
      */
     public function message()
     {
-        return 'This not your area.';
+        return 'The longitude must into your area.';
     }
 }

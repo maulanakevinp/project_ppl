@@ -34,15 +34,15 @@
                         {!! $errors->first('address', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>
                     <div class="form-group">
-                        <label for="nik_file" class="control-label">{{ __('user.nik_file') }}</label>
+                        <label for="ktp_scan" class="control-label">{{ __('user.nik_file') }}</label>
                         <div class="text-center">
                             <img id="nik_image" src="{{ asset('img/noimage.jpg') }}" class="img-thumbnail">
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input {{ $errors->has('nik_file') ? ' is-invalid' : '' }}" id="nik_file" name="nik_file">
-                            <label id="custom-file-label-nik" class="custom-file-label" for="nik_file">{{__('Choose file')}}</label>
+                            <input type="file" class="custom-file-input {{ $errors->has('ktp_scan') ? ' is-invalid' : '' }}" id="ktp_scan" name="ktp_scan">
+                            <label id="custom-file-label-nik" class="custom-file-label" for="ktp_scan">{{__('Choose file')}}</label>
                         </div>
-                        {!! $errors->first('nik_file', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        {!! $errors->first('ktp_scan', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>
                     <div class="form-group">
                         <label for="photo" class="control-label">{{ __('user.photo') }}</label>

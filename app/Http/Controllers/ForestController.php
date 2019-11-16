@@ -56,10 +56,10 @@ class ForestController extends Controller
             'address'           => 'required|max:255',
             'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric , new OwnLat(auth()->user()->latitude1, auth()->user()->latitude2)],
             'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric, new OwnLong(auth()->user()->longitude1, auth()->user()->longitude2)],
-            'nik_file'          => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
+            'ktp_scan'          => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
             'photo_file'        => ['required', 'image', 'mimes:jpeg,png', 'max:2048']
         ]);
-        $newForest['nik_file'] = $this->setImageUpload($request->file('nik_file'),'img/nik');
+        $newForest['nik_file'] = $this->setImageUpload($request->file('ktp_scan'),'img/nik');
         $newForest['photo_file'] = $this->setImageUpload($request->file('photo_file'),'img/photo');
         $newForest['creator_id'] = auth()->id();
         $forest = Forest::create($newForest);
@@ -114,12 +114,12 @@ class ForestController extends Controller
             'address'           => 'required|max:255',
             'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric, new OwnLat(auth()->user()->latitude1, auth()->user()->latitude2)],
             'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric, new OwnLong(auth()->user()->longitude1, auth()->user()->longitude2)],
-            'nik_file'          => ['image', 'mimes:jpeg,png', 'max:2048'],
+            'ktp_scan'          => ['image', 'mimes:jpeg,png', 'max:2048'],
             'photo_file'        => ['image', 'mimes:jpeg,png', 'max:2048']
         ]);
 
-        if ($request->file('nik_file')) {
-            $forestData['nik_file'] = $this->setImageUpload($request->file('nik_file'), 'img/nik', $forest->nik_file);
+        if ($request->file('ktp_scan')) {
+            $forestData['nik_file'] = $this->setImageUpload($request->file('ktp_scan'), 'img/nik', $forest->nik_file);
         }
         
         if ($request->file('photo_file')) {
