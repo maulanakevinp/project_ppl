@@ -127,6 +127,7 @@ Dashboard - {{ config('app.name') }}
             ],
         });
         $('#forestTable').DataTable({
+            order: [[ 6, "desc" ]],
             processing: true,
             serverside: true,
             ajax: "{{ route('ajax.get_forest') }}",
