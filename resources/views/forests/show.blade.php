@@ -3,6 +3,9 @@
 @section('title', __('forest.detail'))
 
 @section('content')
+<!-- Notification -->
+@if ($errors->any())<div class="alert alert-danger alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+<!-- /.Notification -->
 <div class="row justify-content-center">
     <div class="col-md-6 mb-3">
         <div class="card">
