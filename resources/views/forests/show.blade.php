@@ -77,7 +77,6 @@
                 <a href="{{ url('/') }}" class="btn btn-link">{{ __('forest.back_to_our_forest') }}</a>
                 @if (Auth::user() != null)
                     @if (Auth::user()->role_id == 2)
-                        <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
                         <a href="{{ url('/dashboard') }}" class="btn btn-link">{{ __('forest.back_to_dashboard') }}</a>                    
                     @elseif(Auth::user()->role_id == 3)
                         <a href="{{ route('forests.index') }}" class="btn btn-link">{{ __('forest.back_to_index') }}</a>
