@@ -35,7 +35,14 @@
                                 <tr class="p-0">
                                     <td>Status</td>
                                     <td>
-                                        @if($forest->verify == 1) <label class="text-success">Approved <i class="fas fa-check"></i></label> @elseif($forest->verify == -1 ) <label class="text-danger">Rejected <i class="fas fa-times"></i></label> @else <label class="text-dark">Not yet approved <i class="fas fa-info-circle"></i></label> @endif
+                                        @if($forest->verify == 1) 
+                                            <label class="text-success">Approved <i class="fas fa-check"></i></label> 
+                                        @elseif($forest->verify == -1 ) 
+                                            <label class="text-danger">Rejected <i class="fas fa-times"></i></label>
+                                            <p>{{ $forest->reason }}</p>
+                                        @else
+                                            <label class="text-dark">Not yet approved <i class="fas fa-info-circle"></i></label> 
+                                        @endif
                                     </td>
                                 </tr>
                             @endif

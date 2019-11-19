@@ -126,6 +126,8 @@ class ForestController extends Controller
             $forestData['photo_file'] = $this->setImageUpload($request->file('photo_file'), 'img/photo', $forest->photo_file);
         }
 
+        $forestData['verify'] = null;
+        $forestData['reason'] = null;
         $forest->update($forestData);
         Alert::success('Forest has been updated', 'success');
         return redirect()->route('forests.show', $forest);
