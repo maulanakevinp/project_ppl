@@ -29,7 +29,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'menu' => 'required'
+            'menu' => 'required|max:191'
         ]);
 
         UserMenu::create($request->all());
@@ -48,7 +48,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'menu' => 'required'
+            'menu' => 'required|max:191'
         ]);
 
         UserMenu::where('id', $id)->update([

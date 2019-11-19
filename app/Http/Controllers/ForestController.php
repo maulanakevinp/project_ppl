@@ -52,8 +52,8 @@ class ForestController extends Controller
         $newForest = $request->validate([
             'nik'               => 'required|digits:16',
             'name'              => 'required|max:60',
-            'owner_address'     => 'required|max:255',
-            'address'           => 'required|max:255',
+            'owner_address'     => 'required',
+            'address'           => 'required',
             'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric , new OwnLat(auth()->user()->latitude1, auth()->user()->latitude2)],
             'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric, new OwnLong(auth()->user()->longitude1, auth()->user()->longitude2)],
             'ktp_scan'          => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
@@ -110,8 +110,8 @@ class ForestController extends Controller
         $forestData = $request->validate([
             'nik'               => 'required|digits:16',
             'name'              => 'required|max:60',
-            'owner_address'     => 'required|max:255',
-            'address'           => 'required|max:255',
+            'owner_address'     => 'required',
+            'address'           => 'required',
             'latitude'          => ['required', 'required_with:longitude', 'max:15', new MustNumeric, new OwnLat(auth()->user()->latitude1, auth()->user()->latitude2)],
             'longitude'         => ['required', 'required_with:latitude', 'max:15', new MustNumeric, new OwnLong(auth()->user()->longitude1, auth()->user()->longitude2)],
             'ktp_scan'          => ['image', 'mimes:jpeg,png', 'max:2048'],

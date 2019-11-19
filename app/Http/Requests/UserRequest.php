@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'  => ['required'],
+            'name'  => ['required','max:60'],
             'image' => ['image', 'mimes:jpeg,png,gif', 'max:2048']
         ];
 

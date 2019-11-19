@@ -22,8 +22,8 @@ class CreateForestsTable extends Migration
             $table->string('latitude', 15)->nullable();
             $table->string('longitude', 15)->nullable();
             $table->unsignedBigInteger('creator_id');
-            $table->string('nik_file')->nullable();
-            $table->string('photo_file')->nullable();
+            $table->text('nik_file')->nullable();
+            $table->text('photo_file')->nullable();
             $table->tinyInteger('verify')->nullable();
             $table->text('reason')->nullable();
             $table->timestamps();
