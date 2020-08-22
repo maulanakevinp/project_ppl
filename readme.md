@@ -23,18 +23,9 @@ Follow this instructions to install the project:
 4. `$ cp .env.example .env`
 5. `$ php artisan key:generate`
 6. Set **database config** on `.env` file
-7. `$ php artisan migrate`
+7. `$ php artisan migrate --seed`
 8. `$ php artisan serve`
 10. Open `https://localhost:8000` with browser.
-
-### Demo Records
-
-If we need some outlet demo records, we can use model factory within tinker:
-
-```bash
-$ php artisan tinker
->>> factory(App\Outlet::class, 30)->create();
-```
 
 ### Leaflet config
 
